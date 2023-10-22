@@ -1,27 +1,19 @@
-# React + TypeScript + Vite
+# 포켓몬 도감
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Git Commit( feat: “커밋 내용” )
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+init: 초기 세팅을 했을 경우
+setup: 폴더 혹은 전체적인 구조의 변경이 있을 경우
+feat: 새로운 기능을 추가할 경우
+fix: 버그를 고친 경우
+docs: 문서를 수정한 경우
+style: 코드 포맷 변경, 세미 콜론 누락, 코드 수정이 없는 경우
+refactor: 프로덕션 코드 리팩토링
+test: 테스트 추가, 테스트 리팩토링 (코드 변경 X)
+chore: 빌드 테스트 업데이트, 패키지 매니저를 설정하는 경우 (코드 변경 X)
+design: CSS 등 사용자 UI 디자인 변경
+comment: 필요한 주석 추가 및 변경
+rename: 파일 혹은 폴더명을 수정하는 경우
+remove: 사용하지 않는 파일 혹은 폴더를 삭제하는 경우
+```
