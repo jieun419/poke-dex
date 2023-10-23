@@ -1,28 +1,22 @@
-import Search from '../../assets/icons/Search';
-import Sun from '../../assets/icons/Sun';
+import styled from 'styled-components';
 import logo from '../../assets/images/nav_logo.png';
+import Nav from '../nav/Nav';
+
+const HeaderContainer = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 6.25rem;
+`;
 
 const Header = () => {
   return (
-    <header>
+    <HeaderContainer>
       <h2>
         <img src={logo} alt="logo" />
       </h2>
-      <nav>
-        <ul>
-          <li>
-            <button>
-              <Search />
-            </button>
-          </li>
-          <li>
-            <button>
-              <Sun />
-            </button>
-          </li>
-        </ul>
-      </nav>
-    </header>
+      <Nav />
+    </HeaderContainer>
   );
 };
 
