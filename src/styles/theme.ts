@@ -4,11 +4,20 @@ export const size = {
   desktop: '1800px',
 };
 
-export const theme = {
-  mainColor: '#6ABD8C',
-  mainColorLight: '#CCDFB0',
-  backgroundColor: '#F6F9F0',
-  darkGray: '#595959',
-  lightGray: '#939292',
-  superLightGray: '#F1F2F5',
+export const light = {
+  colors: {
+    bgColor: '#fff',
+    boxColor: '#fff',
+    textColor: '#000',
+    iconColor: '#414443',
+  },
+};
+
+export const dark = {
+  colors: {
+    bgColor: '#222',
+    boxColor: '#444',
+    textColor: '#FDFDFD',
+    iconColor: '#FDFDFD',
+  },
 };
