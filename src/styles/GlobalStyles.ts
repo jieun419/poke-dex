@@ -6,8 +6,9 @@ const GlobalStyles = createGlobalStyle`
   :root {
     --bg-color: ${(props) => props.theme.colors.bgColor};
     --box-color: ${(props) => props.theme.colors.boxColor};
-    --text-color: ${(props) => props.theme.colors.textColorColor};
+    --text-color: ${(props) => props.theme.colors.textColor};
     --icon-color: ${(props) => props.theme.colors.iconColor};
+    --icon-box-color: ${(props) => props.theme.colors.iconBoxColor};
   }
     // 적용시킬 css 입력
     a{
