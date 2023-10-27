@@ -36,7 +36,6 @@ const LoadingText = styled.p`
     0 2px #1e2c5f,
     2px 0 #ed1b24,
     0 -2px #ed1b24;
-  /* filter: drop-shadow(-2px 2px 0px #1e2c5f); */
 `;
 
 const Loading = () => {
