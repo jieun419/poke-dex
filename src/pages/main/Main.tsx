@@ -3,8 +3,6 @@ import SearchBox from '../../components/box/SearchBox';
 import MainLogo from '../../components/main/MainLogo';
 import PokeInfoCard from '../../components/card/PokeInfoCard';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
 import { useQuery } from 'react-query';
 import { getPokemonData, getPokemonList } from '../../api/pokemonApi';
 import Loading from '../loading/Loading';

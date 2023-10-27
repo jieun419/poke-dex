@@ -4,6 +4,7 @@ type initialStateT = {
   themeMode: string;
 };
 const toggleThemeMode = localStorage.getItem('THEME');
+
 const initialState: initialStateT = {
   themeMode: toggleThemeMode ? toggleThemeMode : 'light',
 };

@@ -11,9 +11,9 @@ import store, { RootState } from './store/index.ts';
 const queryClient = new QueryClient();
 
 function MyApp() {
-  const ThemeMode = useSelector((state: RootState) => state.themeType.themeMode);
+  const themeMode = useSelector((state: RootState) => state.themeType.themeMode);
   return (
-    <ThemeProvider theme={ThemeMode === 'dark' ? dark : light}>
+    <ThemeProvider theme={themeMode === 'dark' ? dark : light}>
       <GlobalStyle />
       <App />
     </ThemeProvider>
