@@ -10,6 +10,7 @@ export const light = {
     boxColor: '#fff',
     textColor: '#000',
     iconColor: '#414443',
+    iconBoxColor: '#f1f1f1',
   },
 };
 
@@ -19,5 +20,6 @@ export const dark = {
     boxColor: '#444',
     textColor: '#FDFDFD',
     iconColor: '#FDFDFD',
+    iconBoxColor: '#444',
   },
 };

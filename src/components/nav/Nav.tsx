@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import SearchBtn from '../button/SearchBtn';
 import ThemeBtn from '../button/ThemeBtn';
+import useToggleTheme from '../../hooks/useToggleTheme';
 
 const NavContainer = styled.nav``;
 
@@ -11,6 +12,7 @@ const MenuList = styled.ul`
 `;
 
 const Nav = () => {
+  const handlerTheme = useToggleTheme();
   return (
     <NavContainer>
       <MenuList>
@@ -18,7 +20,7 @@ const Nav = () => {
           <SearchBtn />
         </li>
         <li>
-          <ThemeBtn />
+          <ThemeBtn handlerTheme={handlerTheme} />
         </li>
       </MenuList>
     </NavContainer>
