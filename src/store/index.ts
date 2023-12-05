@@ -1,11 +1,13 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { infinityScrollReducer } from './infinityScroll-slice';
 import { themeReducer } from './theme-slice';
+import { overlayMadalReducer } from './overlayModal-slice';
 
 const store = configureStore({
   reducer: {
     infinityScroll: infinityScrollReducer,
     themeType: themeReducer,
+    overlayMoal: overlayMadalReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
