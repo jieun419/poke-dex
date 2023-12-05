@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import logo from '../../assets/images/nav_logo.png';
 import Nav from '../nav/Nav';
+import { Link } from 'react-router-dom';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -12,9 +13,11 @@ const HeaderContainer = styled.header`
 const Header = () => {
   return (
     <HeaderContainer>
-      <h2>
-        <img src={logo} alt="logo" />
-      </h2>
+      <Link to="/">
+        <h2>
+          <img src={logo} alt="logo" />
+        </h2>
+      </Link>
       <Nav />
     </HeaderContainer>
   );
