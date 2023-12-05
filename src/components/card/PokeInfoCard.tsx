@@ -1,6 +1,12 @@
 import styled, { css } from 'styled-components';
 import Pokeball from '../../assets/icons/Pokeball';
 import TypeText from '../text/TypeText';
+import { useQuery } from 'react-query';
+import { getPokemonData } from '../../api/pokemonApi';
+import PokemonDetail from '../../pages/detail/PokemonDetail';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { overlayMadalActions } from '../../store/overlayModal-slice';
 
 const PokeCardContainer = styled.div`
   position: relative;
@@ -74,27 +80,40 @@ type TypesT = {
   };
 };
 
-interface PokeDataT {
-  id: number;
+interface PokeListDataT {
   name: string;
-  sprites: string;
-  types: TypesT[];
 }
 
-const PokeInfoCard = ({ id, name, sprites, types }: PokeDataT) => {
+const PokeInfoCard = ({ name }: PokeListDataT) => {
+  const dispatch = useDispatch();
+  const modal = useSelector((state: RootState) => state.overlayMoal.modalState);
+
+  const { data: pokeData } = useQuery({
+    queryKey: ['pokeData', name],
+    queryFn: () => getPokemonData(name),
+    onError(err) {
+      console.log(err);
+    },
+    refetchOnWindowFocus: false,
+  });
+
+  const handlerModal = (nameId: string) => {
+    dispatch(overlayMadalActions.toggleModal());
+    dispatch(overlayMadalActions.idSave(nameId));
+  };
+
   return (
     <>
-      <PokeCardContainer>
+      {modal && <PokemonDetail />}
+      <PokeCardContainer id={name} onClick={() => handlerModal(name)}>
         <TextWrap>
-          <NumText>no. {id}</NumText>
+          <NumText>no. {pokeData?.id}</NumText>
           <NameText>{name}</NameText>
           <TypeBox>
-            {types.map((el, idx) => (
-              <TypeText key={idx} typename={el.type.name} />
-            ))}
+            {pokeData?.types.map((el: TypesT, idx: number) => <TypeText key={idx} typename={el.type.name} />)}
           </TypeBox>
         </TextWrap>
-        <Img src={sprites} alt={name} />
+        <Img src={pokeData?.sprites.front_default} alt={pokeData?.name} />
         <BgImg>
           <Pokeball color="#f5f5f5" />
         </BgImg>
