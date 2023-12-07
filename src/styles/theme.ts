@@ -11,6 +11,7 @@ export const light = {
     textColor: '#000',
     iconColor: '#414443',
     iconBoxColor: '#f1f1f1',
+    borColor: '#dcdcdc',
   },
 };
 
@@ -21,5 +22,6 @@ export const dark = {
     textColor: '#FDFDFD',
     iconColor: '#FDFDFD',
     iconBoxColor: '#444',
+    borColor: 'none',
   },
 };

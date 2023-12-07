@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
     --text-color: ${(props) => props.theme.colors.textColor};
     --icon-color: ${(props) => props.theme.colors.iconColor};
     --icon-box-color: ${(props) => props.theme.colors.iconBoxColor};
+    --border-color: ${(props) => props.theme.colors.borColor};
   }
     // 적용시킬 css 입력
     a{

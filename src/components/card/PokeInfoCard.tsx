@@ -98,13 +98,13 @@ const PokeInfoCard = ({ name }: PokeListDataT) => {
   });
 
   const handlerModal = (nameId: string) => {
-    dispatch(overlayMadalActions.toggleModal());
     dispatch(overlayMadalActions.idSave(nameId));
+    dispatch(overlayMadalActions.toggleModal());
   };
 
   return (
     <>
-      {modal && <PokemonDetail />}
+      {modal && <PokemonDetail name={name} />}
       <PokeCardContainer id={name} onClick={() => handlerModal(name)}>
         <TextWrap>
           <NumText>no. {pokeData?.id}</NumText>
