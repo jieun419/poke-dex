@@ -17,8 +17,14 @@ const overlayMadalSlice = createSlice({
     toggleModal(state) {
       state.modalState = !state.modalState;
     },
-    idSave(state, actions) {
-      state.id = actions.payload;
+    // openModal(state) {
+    //   state.modalState = true;
+    // },
+    // closeModal(state) {
+    //   state.modalState = false;
+    // },
+    idSave(state, action) {
+      state.id = action.payload;
     },
   },
 });
