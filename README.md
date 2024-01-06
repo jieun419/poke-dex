@@ -2,7 +2,7 @@
 ![스크린샷 2024-01-06 오후 6 14 56](https://github.com/jieun419/poke-dex/assets/109754988/406a46ef-a8a7-477a-9493-0f473d3b9832)
 - 포켓몬 리스트를 확인하고 카드 클릭 시 원하는 포켓몬의 정보를 알 수 있습니다.
 - **`작업 기간 :`** 23.09 - 진행 중
-- **`배포 링크 :`** 배포 전
+- **`배포 링크 :`** 배포 전
 - **`Figma 구상도 :`** [디자인 시안](https://www.figma.com/file/1Gmg1R2fYyPPrbyeWpOkWa/%ED%8F%AC%EC%BC%93%EB%AA%AC-%EB%8F%84%EA%B0%90?type=design&node-id=0%3A1&mode=design&t=hblSPKcI41uNVdQo-1)
 - **`Stack` :** Vite, React, TypeScript, React Query, Redux Toolkit, Styled Components
 
