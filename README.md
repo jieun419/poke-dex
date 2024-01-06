@@ -1,4 +1,25 @@
 # 포켓몬 도감
+![스크린샷 2024-01-06 오후 6 14 56](https://github.com/jieun419/poke-dex/assets/109754988/406a46ef-a8a7-477a-9493-0f473d3b9832)
+- 포켓몬 리스트를 확인하고 카드 클릭 시 원하는 포켓몬의 정보를 알 수 있습니다.
+- **`작업 기간 :`** 23.09 - 진행 중
+- **`배포 링크 :`** 배포 전
+- **`Figma 구상도 :`** [디자인 시안](https://www.figma.com/file/1Gmg1R2fYyPPrbyeWpOkWa/%ED%8F%AC%EC%BC%93%EB%AA%AC-%EB%8F%84%EA%B0%90?type=design&node-id=0%3A1&mode=design&t=hblSPKcI41uNVdQo-1)
+- **`Stack` :** Vite, React, TypeScript, React Query, Redux Toolkit, Styled Components
+
+## 설명
+포켓몬 무료 API를 확인하고 `React Query`는 물론<br />
+**무한 스크롤링, 다크모드, axio를 공부하기 위해 제작하게 되었습니다.**
+
+## 작업 화면
+|Main|Detail|
+|------|---|
+|![스크린샷 2024-01-06 오후 6 15 25](https://github.com/jieun419/poke-dex/assets/109754988/d2fe1651-8b5d-4fe6-bac6-07425c1bd1bb)|![스크린샷 2024-01-06 오후 6 15 20](https://github.com/jieun419/poke-dex/assets/109754988/7b58dee0-aadf-40fe-83c8-c5b9a1b47f4d)|
+|- 상단 로고와 검색버튼, 다크 모드 버튼<br>- 검색창(작업 전)<br>- 포켓몬 리스트를 확인 할 수 있다.|- 포켓몬 카드 클릭 시 상세 정보를 확인할 수 있다.|
+
+|Dark Mode|Dark Mode Detail|
+|------|---|
+|![스크린샷 2024-01-06 오후 6 15 31](https://github.com/jieun419/poke-dex/assets/109754988/4b719a4f-e2c7-4df9-bdf7-2946c8c4e429)|![스크린샷 2024-01-06 오후 6 20 59](https://github.com/jieun419/poke-dex/assets/109754988/0f1e2b91-aa1e-4489-b47e-cbe24f6baa94)|
+|- 다크 모드의 화면|- 다크 모드의 화면|
 
 ### Git Commit( feat: “커밋 내용” )
 
