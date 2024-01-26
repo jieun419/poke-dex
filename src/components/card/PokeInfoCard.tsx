@@ -94,14 +94,12 @@ const PokeInfoCard = ({ name }: PokeListDataT) => {
     onError(err) {
       console.log(err);
     },
-    refetchOnWindowFocus: false,
   });
 
   const handlerModal = (nameId: string) => {
     dispatch(overlayMadalActions.idSave(nameId));
     dispatch(overlayMadalActions.toggleModal());
   };
-
   return (
     <>
       {modal && <PokemonDetail name={name} />}

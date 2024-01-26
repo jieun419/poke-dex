@@ -18,8 +18,8 @@ instance.interceptors.response.use(
     return response;
   },
 
-  function (error) {
-    return Promise.reject(error);
+  function (err) {
+    return Promise.reject(err);
   },
 );
 
