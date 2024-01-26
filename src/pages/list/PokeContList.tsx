@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import { useEffect, useState } from 'react';
 import { getPokemonList } from '../../api/pokemonApi';
 import PokeInfoCard from '../../components/card/PokeInfoCard';
-import Loading from '../loading/Loading';
+import SkeletonCard from '../../components/skeleton/SkeletonCard';
 
 interface PokeList {
   name: string;
@@ -15,6 +15,7 @@ const PokeContainer = styled.article`
   width: 100%;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
+  margin-bottom: 60px;
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -39,7 +40,6 @@ const PokeContList = () => {
     onError(err) {
       console.log(err);
     },
-    refetchOnWindowFocus: false,
   });
 
   const upDatePokemon = async () => {
@@ -63,15 +63,14 @@ const PokeContList = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', eventScroll);
-
     return () => {
       window.removeEventListener('scroll', eventScroll);
     };
-  });
+  }, [pokemonList]);
 
   return (
     <PokeContainer>
-      {!pokemonList && <Loading />}
+      {pokemonList.length <= 0 && <SkeletonCard />}
       {pokemonList && pokemonList.map((pokemon) => <PokeInfoCard key={pokemon.name} name={pokemon.name} />)}
     </PokeContainer>
   );
