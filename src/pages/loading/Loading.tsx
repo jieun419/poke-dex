@@ -42,7 +42,7 @@ const Loading = () => {
   return (
     <LoadingContainer>
       <ImgLoading>
-        <img src={pokeball} alt="포켓볼 이미지" />
+        <img src={pokeball} loading="lazy" alt="포켓볼 이미지" />
       </ImgLoading>
       <LoadingText>포켓몬을 불러오고 있어요</LoadingText>
     </LoadingContainer>
