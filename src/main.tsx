@@ -1,30 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider, useSelector } from 'react-redux';
-import App from './App.tsx';
-import GlobalStyle from './styles/GlobalStyles';
-import { ThemeProvider } from 'styled-components';
-import { light, dark } from './styles/theme.ts';
+import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import store, { RootState } from './store/index.ts';
+import store from './store/index.ts';
+import RootApp from './RootApp.tsx';
 
 const queryClient = new QueryClient();
-
-function MyApp() {
-  const themeMode = useSelector((state: RootState) => state.themeType.themeMode);
-  return (
-    <ThemeProvider theme={themeMode === 'dark' ? dark : light}>
-      <GlobalStyle />
-      <App />
-    </ThemeProvider>
-  );
-}
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <MyApp />
+        <RootApp />
       </Provider>
     </QueryClientProvider>
   </React.StrictMode>,
