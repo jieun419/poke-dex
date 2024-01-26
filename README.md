@@ -7,8 +7,26 @@
 - **`Stack` :** Vite, React, TypeScript, React Query, Redux Toolkit, Styled Components
 
 ## 설명
-포켓몬 무료 API를 확인하고 `React Query`는 물론<br />
-**무한 스크롤링, 다크모드, axios를 공부하기 위해 제작하게 되었습니다.**
+포켓몬 API를 알게되어 작업을 진행하게 되었습니다.
+`React Query`는 물론 무한 스크롤링, 다크모드, axios를 공부하기 위해 제작하게 되었습니다.
+
+- 포켓몬을 20개씩 확인할 수 있습니다.
+- 스크롤할 경우 20개씩 포켓몬을 확인할 수 있습니다.
+- 특정 포켓몬 클릭 시 포켓몬 정보를 확인할 수 있습니다.
+- 다크모드/라이드모드로 확인이 가능합니다.
+
+## 작업 사항
+- 최적화를 위한 코드 스플리팅
+- 이미지 태그에 `loading='lazy'` 추가
+- 메인화면 데이터가 없을 경우 로딩화면 연결 `Lazy`, `Suspense`
+- 카드 컴포넌트에 포켓몬 데이터가 없을 경우 `스켈레톤` 보이도록 작업
+- Redux Toolkit, localStorage를 활용해 다크모드/라이트모드 값을 저장
+  - 새로고침해도 테마 유지되도록 작업 
+- Axios, useQuery를 활용해 포켓몬 데이터 불러 오기
+- `scrollHeight`, `scrollTop`, `clientHeight`요소를 활용해 무한 스크롤 구현
+
+## 관련 링크
+[기능][다크모드 구현하기](https://velog.io/@crg1050/다크모드-구현-하기-react-reduxToolkit-styled-components)
 
 ## 작업 화면
 |Main|Detail|
