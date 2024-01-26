@@ -5,7 +5,15 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import store from './store/index.ts';
 import RootApp from './RootApp.tsx';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      useErrorBoundary: true,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
