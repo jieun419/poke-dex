@@ -209,8 +209,8 @@ const PokemonDetail = ({ name }: PropsT) => {
                   </TopText>
 
                   <TopImgBox>
-                    <img src={pokeData?.sprites.front_default} alt="앞면" />
-                    <img src={pokeData?.sprites.back_default} alt="뒷면" />
+                    <img src={pokeData?.sprites.front_default} loading="lazy" alt="앞면" />
+                    <img src={pokeData?.sprites.back_default} loading="lazy" alt="뒷면" />
                   </TopImgBox>
                 </TopWrap>
 

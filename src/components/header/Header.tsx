@@ -15,7 +15,7 @@ const Header = () => {
     <HeaderContainer>
       <Link to="/">
         <h2>
-          <img src={logo} alt="logo" />
+          <img src={logo} loading="lazy" alt="logo" />
         </h2>
       </Link>
       <Nav />
