@@ -3,7 +3,7 @@ import { CircleButton } from './Button.styled';
 
 const SearchBtn = () => {
   return (
-    <CircleButton>
+    <CircleButton name="search button">
       <Search />
     </CircleButton>
   );
