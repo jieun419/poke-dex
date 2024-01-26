@@ -1,16 +1,13 @@
 import { useQuery } from 'react-query';
-import { getPokemonData, getPokemonSpeciesData } from '../../api/pokemonApi';
 import styled from 'styled-components';
-import BackArrow from '../../assets/icons/BackArrow';
 import { useDispatch, useSelector } from 'react-redux';
+import { getPokemonData, getPokemonSpeciesData } from '../../api/pokemonApi';
 import { overlayMadalActions } from '../../store/overlayModal-slice';
 import { RootState } from '../../store';
-import { Suspense, useRef } from 'react';
-import Loading from '../loading/Loading';
-
-interface ColorT {
-  color: string;
-}
+import BackBtn from '../../components/button/BackBtn';
+import ModalBgBox from '../../components/box/ModalBgBox';
+import DropBox from '../../components/box/DropBox';
+import { strRepeat } from '../../utils/strRepeat';
 
 interface PropsT {
   name: string;
@@ -42,16 +39,6 @@ const DetailContainer = styled.article`
   height: 100vh;
 `;
 
-const DropBox = styled.div`
-  position: fixed;
-  background-color: #000;
-  opacity: 0.6;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-`;
-
 const DetailWrap = styled.section`
   position: relative;
   padding: 40px 6.25rem;
@@ -60,18 +47,6 @@ const DetailWrap = styled.section`
   z-index: 1;
   overflow: hidden;
   border-radius: 10px;
-`;
-
-const BgBox = styled.div<ColorT>`
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(100vh - 60vh);
-  background-color: ${({ color }) => (color ? color : '#333')};
-  opacity: 0.2;
-  position: absolute;
-  border-bottom: 1px solid #000;
-  z-index: -1;
 `;
 
 const TopWrap = styled.section`
@@ -105,6 +80,8 @@ const NumText = styled.span`
 const TopImgBox = styled.div`
   display: flex;
   flex: 1;
+  width: 100%;
+  height: 250px;
   & > img {
     width: 250px;
   }
@@ -141,8 +118,6 @@ const InfoBox = styled.div`
   }
 `;
 
-const BackBtn = styled.button``;
-
 const Typebox = styled.div`
   display: flex;
   gap: 4px;
@@ -158,18 +133,21 @@ const Typebox = styled.div`
 const PokemonDetail = ({ name }: PropsT) => {
   const dispatch = useDispatch();
   const nameId = useSelector((state: RootState) => state.overlayMoal.id);
-  const idRef = useRef<HTMLDivElement>(null);
+
+  const handlerModal = () => {
+    dispatch(overlayMadalActions.toggleModal());
+  };
 
   const { data: pokeData } = useQuery({
-    queryKey: ['pokemondetail', nameId],
+    queryKey: ['pokemondetail', name],
     queryFn: () => getPokemonData(nameId),
     onError(err) {
       console.log(err);
     },
-    refetchOnWindowFocus: false,
+    enabled: nameId === name,
   });
 
-  const speciesData = pokeData?.species.url;
+  const speciesData = nameId === name && pokeData?.species.url;
 
   const { data: species } = useQuery({
     queryKey: ['pokemonsecies', pokeData],
@@ -177,70 +155,53 @@ const PokemonDetail = ({ name }: PropsT) => {
     onError(err) {
       console.log(err);
     },
-    refetchOnWindowFocus: false,
   });
-
-  const handlerModal = () => {
-    dispatch(overlayMadalActions.toggleModal());
-  };
-
-  const strRepeat = (value: number): string => {
-    const str = String(value);
-    const result = str.slice(0, str.length - 1) + '.' + str.slice(str.length - 1);
-    return result.padStart(3, '0');
-  };
 
   return (
     <>
-      {nameId === name && (
-        <DetailContain id={nameId} ref={idRef}>
+      {pokeData && species && nameId === name ? (
+        <DetailContain id={nameId}>
           <DetailContainer>
             <DetailWrap>
-              <Suspense fallback={<Loading />}>
-                <BackBtn onClick={handlerModal}>
-                  <BackArrow />
-                </BackBtn>
+              <BackBtn handlerModal={handlerModal} />
+              <ModalBgBox color={species.color && species.color.name} />
 
-                <BgBox color={species?.color && species?.color.name} />
-                <TopWrap>
-                  <TopText>
-                    <NumText>No. {pokeData?.id}</NumText>
-                    <NameText>{pokeData?.name}</NameText>
-                  </TopText>
+              <TopWrap>
+                <TopText>
+                  <NumText>No. {pokeData.id}</NumText>
+                  <NameText>{pokeData.name}</NameText>
+                </TopText>
 
-                  <TopImgBox>
-                    <img src={pokeData?.sprites.front_default} alt="앞면" />
-                    <img src={pokeData?.sprites.back_default} alt="뒷면" />
-                  </TopImgBox>
-                </TopWrap>
+                <TopImgBox>
+                  <img src={pokeData.sprites.front_default} loading="lazy" alt="앞면" />
+                  <img src={pokeData.sprites.back_default} loading="lazy" alt="뒷면" />
+                </TopImgBox>
+              </TopWrap>
 
-                <DetailInfoWrap>
-                  <InfoBox>
-                    <h3>타입</h3>
-                    <Typebox>
-                      {pokeData?.types.map((el: TypesT, idx: number) => (
-                        <span key={idx}>{el.type && el.type.name}</span>
-                      ))}
-                    </Typebox>
-                  </InfoBox>
+              <DetailInfoWrap>
+                <InfoBox>
+                  <h3>타입</h3>
+                  <Typebox>
+                    {pokeData?.types.map((el: TypesT, idx: number) => <span key={idx}>{el.type && el.type.name}</span>)}
+                  </Typebox>
+                </InfoBox>
 
-                  <InfoBox>
-                    <h3>키</h3>
-                    <div>{strRepeat(pokeData?.height)}m</div>
-                  </InfoBox>
+                <InfoBox>
+                  <h3>키</h3>
+                  <div>{strRepeat(pokeData.height)}m</div>
+                </InfoBox>
 
-                  <InfoBox>
-                    <h3>몸무게</h3>
-                    <div>{strRepeat(pokeData?.weight)}kg</div>
-                  </InfoBox>
-                </DetailInfoWrap>
-              </Suspense>
+                <InfoBox>
+                  <h3>몸무게</h3>
+                  <div>{strRepeat(pokeData.weight)}kg</div>
+                </InfoBox>
+              </DetailInfoWrap>
             </DetailWrap>
 
-            <DropBox onClick={handlerModal} />
+            <DropBox handlerModal={handlerModal} />
           </DetailContainer>
         </DetailContain>
-      )}
+      ) : null}
     </>
   );
 };

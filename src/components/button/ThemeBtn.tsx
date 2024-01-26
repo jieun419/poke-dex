@@ -12,7 +12,7 @@ const ThemeBtn = ({ handlerTheme }: ThemePropsT) => {
   const ThemeMode = useSelector((state: RootState) => state.themeType.themeMode);
   const isDarkMode = ThemeMode === 'dark';
   return (
-    <CircleButton onClick={handlerTheme}>
+    <CircleButton onClick={handlerTheme} name="theme button">
       {isDarkMode ? (
         <IcAnime>
           <Moon />

@@ -94,14 +94,12 @@ const PokeInfoCard = ({ name }: PokeListDataT) => {
     onError(err) {
       console.log(err);
     },
-    refetchOnWindowFocus: false,
   });
 
   const handlerModal = (nameId: string) => {
     dispatch(overlayMadalActions.idSave(nameId));
     dispatch(overlayMadalActions.toggleModal());
   };
-
   return (
     <>
       {modal && <PokemonDetail name={name} />}
@@ -113,7 +111,7 @@ const PokeInfoCard = ({ name }: PokeListDataT) => {
             {pokeData?.types.map((el: TypesT, idx: number) => <TypeText key={idx} typename={el.type.name} />)}
           </TypeBox>
         </TextWrap>
-        <Img src={pokeData?.sprites.front_default} alt={pokeData?.name} />
+        <Img src={pokeData?.sprites.front_default} loading="lazy" alt={pokeData?.name} />
         <BgImg>
           <Pokeball color="#f5f5f5" />
         </BgImg>

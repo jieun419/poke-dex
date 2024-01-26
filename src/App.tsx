@@ -5,7 +5,6 @@ import Header from './components/header/Header';
 import Loading from './pages/loading/Loading';
 
 const Main = lazy(() => import('./pages/main/Main'));
-const PokemonDetail = lazy(() => import('./pages/detail/PokemonDetail'));
 
 function App() {
   return (
@@ -14,7 +13,6 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/detail/id" element={<PokemonDetail />} />
         </Routes>
       </Suspense>
     </Router>
