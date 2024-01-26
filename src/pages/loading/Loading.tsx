@@ -8,6 +8,7 @@ const LoadingContainer = styled.article`
   align-items: center;
   gap: 30px;
   height: 100vh;
+  width: 100%;
 `;
 const LdsHourglass = keyframes`
   0% {
