@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Search from '../../assets/icons/Search';
 import FilterBtn from '../button/FilterBtn';
+import SearchInput from '../input/SearchInput';
 
 const SearchContainer = styled.div`
   display: flex;
@@ -19,17 +20,6 @@ const FilterWrap = styled.div`
   height: 100%;
 `;
 
-const SearchInput = styled.input`
-  width: 100%;
-  border: 0;
-  border-radius: 0.625rem;
-  box-shadow: -4px 4px 15px 0 rgba(0, 0, 0, 0.1);
-  padding: 20px 20px;
-  padding-left: 50px;
-  font-size: 1rem;
-  background-color: var(--box-color);
-`;
-
 const IcSearch = styled.div`
   position: absolute;
   left: 10px;
@@ -44,9 +34,7 @@ const SearchBox = () => {
         <IcSearch>
           <Search width="35" height="35" />
         </IcSearch>
-        <label htmlFor="search">
-          <SearchInput type="text" name="search" placeholder="키워드를 입력해 주세요." />
-        </label>
+        <SearchInput />
       </SearchWrap>
       <FilterWrap>
         <FilterBtn />
