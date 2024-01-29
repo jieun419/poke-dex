@@ -26,6 +26,14 @@
 - Axios, useQuery를 활용해 포켓몬 데이터 불러 오기
 - `scrollHeight`, `scrollTop`, `clientHeight`요소를 활용해 무한 스크롤 구현
 
+## 추가 기능(예정)
+- 검색 기능
+  - 필터링 기능
+- 반응형
+- 한국어, 영어 지원
+- 이미지 로딩 시 끊김 현상 개선하기
+- 디테일 화면 적용 느림 현상 개선하기
+
 ## 관련 링크
 [기능][다크모드 구현하기](https://velog.io/@crg1050/다크모드-구현-하기-react-reduxToolkit-styled-components)
 
