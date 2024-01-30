@@ -26,6 +26,8 @@
   - 새로고침해도 테마 유지되도록 작업 
 - Axios, useQuery를 활용해 포켓몬 데이터 불러 오기
 - `scrollHeight`, `scrollTop`, `clientHeight`요소를 활용해 무한 스크롤 구현
+- `URLSearchParams`메서드를 활용해 검색 페이지 구현
+  - 검색 기록이 없을 경우 Nothing화면 표시 
 
 ## Trouble Shooting
 - **`문제점 :`** 포켓몬 데이터 리스트를 업데이트 하는 useEffect가 초기 렌더링시 1번만 호출되어야 하는데 3번 호출 되는 이슈
