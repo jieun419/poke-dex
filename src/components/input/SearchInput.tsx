@@ -13,6 +13,7 @@ const SearchInputWrap = styled.input`
   padding: 20px 20px;
   padding-left: 50px;
   font-size: 1rem;
+  color: var(--text-color);
   background-color: var(--box-color);
 `;
 
