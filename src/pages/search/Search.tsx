@@ -1,8 +1,10 @@
 import styled from 'styled-components';
-import SearchBox from '../../components/box/SearchBox';
-import PokeContList from '../list/PokeContList';
-import BackBtn from '../../components/button/BackBtn';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import SearchBox from '../../components/box/SearchBox';
+import BackBtn from '../../components/button/BackBtn';
+import PokeSearchContList from '../list/PokeSearchContList';
 
 const SearchContainer = styled.main`
   display: flex;
@@ -14,6 +16,7 @@ const SearchContainer = styled.main`
 `;
 
 const Search = () => {
+  const searchPokeData = useSelector((state: RootState) => state.searchKeyWord.pokeData);
   const navigate = useNavigate();
 
   const eventBackPage = () => {
@@ -26,7 +29,7 @@ const Search = () => {
         <BackBtn onClick={eventBackPage} />
       </div>
       <SearchBox />
-      <PokeContList />
+      <PokeSearchContList searchPokeData={searchPokeData} />
     </SearchContainer>
   );
 };

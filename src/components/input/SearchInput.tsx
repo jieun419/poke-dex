@@ -1,6 +1,9 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
+import { getPokemonList } from '../../api/pokemonApi';
+import { useDispatch } from 'react-redux';
+import { searchKeyWordActions } from '../../store/searchPokeList-slice';
 
 const SearchInputWrap = styled.input`
   width: 100%;
@@ -14,16 +17,32 @@ const SearchInputWrap = styled.input`
 `;
 
 const SearchInput = () => {
-  const [keyWord, setKeyWord] = useState<string>('');
-
+  const dispatch = useDispatch();
+  const [keyWord, setKeyWord] = useState('');
   const urlParams = new URLSearchParams(location.search);
   const searchWord = urlParams.get('search');
 
-  const onChangeKeyWord = (e) => {
+  useQuery({
+    queryKey: ['pokeFullList'],
+    queryFn: () => getPokemonList(100000, 0),
+    onSuccess(data) {
+      dispatch(searchKeyWordActions.getSearchKeyWord(searchWord));
+      dispatch(searchKeyWordActions.getSearchPokeData(data.results));
+    },
+    onError(err) {
+      console.log(err);
+    },
+  });
+
+  useEffect(() => {
+    if (searchWord) {
+      setKeyWord(String(searchWord));
+    }
+  }, []);
+
+  const onChangeKeyWord = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyWord(e.target.value);
   };
-
-  console.log('searchWord', searchWord);
 
   return (
     <label htmlFor="search">
