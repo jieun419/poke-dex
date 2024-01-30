@@ -4,11 +4,7 @@ import { useEffect, useState } from 'react';
 import { getPokemonList } from '../../api/pokemonApi';
 import PokeInfoCard from '../../components/card/PokeInfoCard';
 import SkeletonCard from '../../components/skeleton/SkeletonCard';
-
-interface PokeList {
-  name: string;
-  url: string;
-}
+import { PokeListT } from '../../types/types';
 
 const PokeContainer = styled.article`
   display: grid;
@@ -28,7 +24,7 @@ const PokeContainer = styled.article`
 
 const PokeContList = () => {
   const [offset, setOffset] = useState<number>(0);
-  const [pokemonList, setPokemonList] = useState<PokeList[]>([]);
+  const [pokemonList, setPokemonList] = useState<PokeListT[]>([]);
   const LIMIT = 20;
 
   useQuery({
@@ -73,6 +69,7 @@ const PokeContList = () => {
   return (
     <PokeContainer>
       {pokemonList.length <= 0 && <SkeletonCard />}
+
       {pokemonList &&
         pokemonList.length > 0 &&
         pokemonList.map((pokemon) => <PokeInfoCard key={pokemon.name} name={pokemon.name} />)}
