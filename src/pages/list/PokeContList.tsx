@@ -52,26 +52,30 @@ const PokeContList = () => {
     return nextPokeMonList;
   };
 
-  const eventScroll = () => {
-    const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
-
-    if (scrollTop + clientHeight >= scrollHeight) {
-      console.log('바닥');
-      upDatePokemon();
-    }
-  };
-
   useEffect(() => {
-    window.addEventListener('scroll', eventScroll);
-    return () => {
-      window.removeEventListener('scroll', eventScroll);
+    const eventScroll = () => {
+      const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
+
+      if (scrollTop + clientHeight >= scrollHeight) {
+        console.log('바닥감지 업데이트');
+        upDatePokemon();
+      }
     };
+
+    if (pokemonList.length > 0) {
+      window.addEventListener('scroll', eventScroll);
+      return () => {
+        window.removeEventListener('scroll', eventScroll);
+      };
+    }
   }, [pokemonList]);
 
   return (
     <PokeContainer>
       {pokemonList.length <= 0 && <SkeletonCard />}
-      {pokemonList && pokemonList.map((pokemon) => <PokeInfoCard key={pokemon.name} name={pokemon.name} />)}
+      {pokemonList &&
+        pokemonList.length > 0 &&
+        pokemonList.map((pokemon) => <PokeInfoCard key={pokemon.name} name={pokemon.name} />)}
     </PokeContainer>
   );
 };
