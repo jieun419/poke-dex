@@ -11,7 +11,7 @@ const SearchContainer = styled.div`
   margin-bottom: 100px;
 `;
 
-const SearchWrap = styled.div`
+const SearchWrap = styled.form`
   position: relative;
   width: 100%;
 `;
@@ -30,7 +30,7 @@ const IcSearch = styled.div`
 const SearchBox = () => {
   return (
     <SearchContainer>
-      <SearchWrap>
+      <SearchWrap name="search" role="search" action="/search">
         <IcSearch>
           <Search width="35" height="35" />
         </IcSearch>

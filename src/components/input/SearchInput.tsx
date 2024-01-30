@@ -1,4 +1,5 @@
-import { SetStateAction, useState } from 'react';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SearchInputWrap = styled.input`
@@ -15,16 +16,19 @@ const SearchInputWrap = styled.input`
 const SearchInput = () => {
   const [keyWord, setKeyWord] = useState<string>('');
 
+  const urlParams = new URLSearchParams(location.search);
+  const searchWord = urlParams.get('search');
+
   const onChangeKeyWord = (e) => {
     setKeyWord(e.target.value);
   };
 
-  console.log(keyWord);
+  console.log('searchWord', searchWord);
 
   return (
     <label htmlFor="search">
       <SearchInputWrap
-        type="text"
+        type="search"
         name="search"
         value={keyWord}
         onChange={onChangeKeyWord}
