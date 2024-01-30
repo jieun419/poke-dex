@@ -72,7 +72,7 @@ useEffect(() => {
 |![스크린샷 2024-01-06 오후 6 15 31](https://github.com/jieun419/poke-dex/assets/109754988/4b719a4f-e2c7-4df9-bdf7-2946c8c4e429)|![스크린샷 2024-01-06 오후 6 20 59](https://github.com/jieun419/poke-dex/assets/109754988/0f1e2b91-aa1e-4489-b47e-cbe24f6baa94)|
 |- 다크 모드의 화면|- 다크 모드의 화면|
 
-|Search Page|Search Page - Nothing|
+|Search Page|Search Page - Nothing|
 |------|---|
 |![스크린샷 2024-01-31 오전 12 41 40](https://github.com/jieun419/poke-dex/assets/109754988/5dad9ec0-d94c-4bcd-8d6c-6031c75eac51)|![스크린샷 2024-01-31 오전 12 41 19](https://github.com/jieun419/poke-dex/assets/109754988/83f2a068-d15c-40bb-8a4c-7dc8f294926d)|
 |- 검색창 입력 후 엔터시 검색 페이지로 이동<br>- 뒤로가기 버튼 클릭시 이전 기록으로 이동<br>- 검색한 리스트 표시|- 검색한 포켓몬이 없을 경우|
