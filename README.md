@@ -27,15 +27,26 @@
 - `scrollHeight`, `scrollTop`, `clientHeight`요소를 활용해 무한 스크롤 구현
 
 ## Trouble Shooting
-- **`문제점 :`** 뷰포트 바닥에 닿을 경우 포켓몬 데이터가 불러 올 수 있도록 구현, 웹 페이지 초기 접근 시 데이터 불러 오는 시간으로 인해 뷰포트 바닥이 노출 되어 불필요한 포켓몬 데이터를 불러오는 이슈가 발생.
-- **`해결 방안 :`** 스켈레톤을 추가해 만약 포켓몬 데이터가 있지 않을 경우 스켈레톤 화면을 제공해 불필요한 데이터가 불러오지 않도록 방지
+- **`문제점 :`** 포켓몬 데이터 리스트를 업데이트 하는 useEffect가 초기 렌더링시 1번만 호출되어야 하는데 3번 호출 되는 이슈
+- **`해결 방안 :`** 초기 렌더링 시 모켓몬 리스트가 빈배열로 들어오는데 이 때 useEffect가 두번 호출되는 이슈를 확인, useEffect에 포켓몬 데이터 리스트가 있을 경우에만 실행하도록 수정.
 ```typescript
-return (
-    <PokeContainer>
-      {pokemonList.length <= 0 && <SkeletonCard />}
-      {pokemonList && pokemonList.map((pokemon) => <PokeInfoCard key={pokemon.name} name={pokemon.name} />)}
-    </PokeContainer>
-  );
+useEffect(() => {
+  const eventScroll = () => {
+    const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
+
+    if (scrollTop + clientHeight >= scrollHeight) {
+      console.log('바닥감지 업데이트');
+      upDatePokemon();
+    }
+  };
+
+  if (pokemonList.length > 0) {
+    window.addEventListener('scroll', eventScroll);
+    return () => {
+      window.removeEventListener('scroll', eventScroll);
+    };
+  }
+}, [pokemonList]);
 ```
 
 ## 추가 기능(예정)
