@@ -19,26 +19,26 @@
 ## 작업 사항
 ![스크린샷 2024-01-27 오전 2 17 04](https://github.com/jieun419/poke-dex/assets/109754988/c06b7535-ab0d-4d7e-ba73-26d8e9afcf51)
 - 최적화를 위한 코드 스플리팅
-- 이미지 태그에 `loading='lazy'` 추가
-- 메인화면 데이터가 없을 경우 로딩화면 연결 `Lazy`, `Suspense`
+  - 페이지 이동 구간에 `Lazy`, `Suspense`사용
+- 이미지 태그에 `loading='lazy'` 추가해 뷰포트에 보이지 않는 이미지 로딩 지연
 - 카드 컴포넌트에 포켓몬 데이터가 없을 경우 `스켈레톤` 보이도록 작업
-- Redux Toolkit, localStorage를 활용해 다크모드/라이트모드 값을 저장
-  - 새로고침해도 테마 유지되도록 작업 
-- Axios, useQuery를 활용해 포켓몬 데이터 불러 오기
+- Redux Toolkit, `localStorage`를 활용해 다크모드/라이트모드 구현
+  - 사용자에게 다크모드/라이트모드 제공 
+  - 새로고침해도 테마가 유지되므로써 사용자 경험 향상
+- Axios, useQuery를 활용해 포켓몬 데이터 불러오기
 - `scrollHeight`, `scrollTop`, `clientHeight`요소를 활용해 무한 스크롤 구현
 - `URLSearchParams`메서드를 활용해 검색 페이지 구현
   - 검색 기록이 없을 경우 Nothing화면 표시 
 
 ## Trouble Shooting
 - **`문제점 :`** 포켓몬 데이터 리스트를 업데이트 하는 useEffect가 초기 렌더링시 1번만 호출되어야 하는데 3번 호출 되는 이슈
-- **`해결 방안 :`** 초기 렌더링 시 모켓몬 리스트가 빈배열로 들어오는데 이 때 useEffect가 두번 호출되는 이슈를 확인, useEffect에 포켓몬 데이터 리스트가 있을 경우에만 실행하도록 수정.
+- **`해결 방안 :`** 초기 렌더링 시 모켓몬 리스트가 빈 배열로 들어오는데 이 때 useEffect가 2번 호출되는 이슈를 확인, useEffect에 포켓몬 데이터 리스트가 있을 경우에만 실행하도록 수정.
 ```typescript
 useEffect(() => {
   const eventScroll = () => {
     const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
 
     if (scrollTop + clientHeight >= scrollHeight) {
-      console.log('바닥감지 업데이트');
       upDatePokemon();
     }
   };
