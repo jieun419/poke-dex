@@ -61,7 +61,10 @@ useEffect(() => {
 - [ ] 디테일 화면 적용 느림 현상 개선하기
 
 ## 관련 링크
-[기능][다크모드 구현하기](https://velog.io/@crg1050/다크모드-구현-하기-react-reduxToolkit-styled-components)
+[기능] [다크모드 구현하기](https://velog.io/@crg1050/다크모드-구현-하기-react-reduxToolkit-styled-components)<br>
+[기능] [검색 기능 구현하기](https://velog.io/@crg1050/포켓몬-도감-URLSearchParams메서드를-활용해-검색-페이지-구현)<br>
+[이슈] [useEffect 불필요한 호출 막기](https://velog.io/@crg1050/포켓몬-도감-불필요한-데이터-불러오는-이슈)<br>
+[이슈] [불필요한 렌더링 막기](https://velog.io/@crg1050/포켓몬-도감-컴포넌트-분리하기)<br>
 
 ## 작업 화면
 |Main|Detail|
