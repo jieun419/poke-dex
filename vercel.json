@@ -1,9 +1,3 @@
 {
-  "rewrites": [
-    {
-      "source": "/search/:path*",
-      "destination": "/search"
-    }
-  ],
-  "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
