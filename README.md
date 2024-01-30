@@ -26,6 +26,18 @@
 - Axios, useQuery를 활용해 포켓몬 데이터 불러 오기
 - `scrollHeight`, `scrollTop`, `clientHeight`요소를 활용해 무한 스크롤 구현
 
+## Trouble Shooting
+- **`문제점 :`** 뷰포트 바닥에 닿을 경우 포켓몬 데이터가 불러 올 수 있도록 구현, 웹 페이지 초기 접근 시 데이터 불러 오는 시간으로 인해 뷰포트 바닥이 노출 되어 불필요한 포켓몬 데이터를 불러오는 이슈가 발생.
+- **`해결 방안 :`** 스켈레톤을 추가해 만약 포켓몬 데이터가 있지 않을 경우 스켈레톤 화면을 제공해 불필요한 데이터가 불러오지 않도록 방지
+```typescript
+return (
+    <PokeContainer>
+      {pokemonList.length <= 0 && <SkeletonCard />}
+      {pokemonList && pokemonList.map((pokemon) => <PokeInfoCard key={pokemon.name} name={pokemon.name} />)}
+    </PokeContainer>
+  );
+```
+
 ## 추가 기능(예정)
 - 검색 기능
   - 필터링 기능
