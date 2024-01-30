@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import BackArrow from '../../assets/icons/BackArrow';
 
 interface PropsT {
-  handlerModal: () => void;
+  onClick: () => void;
 }
 const BackButton = styled.button``;
 
-const BackBtn = ({ handlerModal }: PropsT) => {
+const BackBtn = ({ onClick }: PropsT) => {
   return (
-    <BackButton onClick={handlerModal}>
+    <BackButton onClick={onClick}>
       <BackArrow />
     </BackButton>
   );

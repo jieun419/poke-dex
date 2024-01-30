@@ -14,7 +14,6 @@ const SkeletonWrap = styled.div`
   background-size: 200% 100%;
   background-position: 100% 0;
   animation: ${load} 1.5s infinite;
-  /* box-shadow: 4px 4px 20px 0 rgba(0, 0, 0, 0.1); */
   padding: 20px;
   display: flex;
   flex-direction: column;

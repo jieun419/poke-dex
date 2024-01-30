@@ -5,6 +5,7 @@ import Header from './components/header/Header';
 import Loading from './pages/loading/Loading';
 
 const Main = lazy(() => import('./pages/main/Main'));
+const Search = lazy(() => import('./pages/search/Search'));
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/search" element={<Search />} />
         </Routes>
       </Suspense>
     </Router>

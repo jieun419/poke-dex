@@ -163,7 +163,7 @@ const PokemonDetail = ({ name }: PropsT) => {
         <DetailContain id={nameId}>
           <DetailContainer>
             <DetailWrap>
-              <BackBtn handlerModal={handlerModal} />
+              <BackBtn onClick={handlerModal} />
               <ModalBgBox color={species.color && species.color.name} />
 
               <TopWrap>

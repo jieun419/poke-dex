@@ -4,11 +4,7 @@ import { useEffect, useState } from 'react';
 import { getPokemonList } from '../../api/pokemonApi';
 import PokeInfoCard from '../../components/card/PokeInfoCard';
 import SkeletonCard from '../../components/skeleton/SkeletonCard';
-
-interface PokeList {
-  name: string;
-  url: string;
-}
+import { PokeListT } from '../../types/types';
 
 const PokeContainer = styled.article`
   display: grid;
@@ -28,7 +24,7 @@ const PokeContainer = styled.article`
 
 const PokeContList = () => {
   const [offset, setOffset] = useState<number>(0);
-  const [pokemonList, setPokemonList] = useState<PokeList[]>([]);
+  const [pokemonList, setPokemonList] = useState<PokeListT[]>([]);
   const LIMIT = 20;
 
   useQuery({
@@ -52,26 +48,31 @@ const PokeContList = () => {
     return nextPokeMonList;
   };
 
-  const eventScroll = () => {
-    const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
-
-    if (scrollTop + clientHeight >= scrollHeight) {
-      console.log('바닥');
-      upDatePokemon();
-    }
-  };
-
   useEffect(() => {
-    window.addEventListener('scroll', eventScroll);
-    return () => {
-      window.removeEventListener('scroll', eventScroll);
+    const eventScroll = () => {
+      const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
+
+      if (scrollTop + clientHeight >= scrollHeight) {
+        console.log('바닥감지 업데이트');
+        upDatePokemon();
+      }
     };
+
+    if (pokemonList.length > 0) {
+      window.addEventListener('scroll', eventScroll);
+      return () => {
+        window.removeEventListener('scroll', eventScroll);
+      };
+    }
   }, [pokemonList]);
 
   return (
     <PokeContainer>
       {pokemonList.length <= 0 && <SkeletonCard />}
-      {pokemonList && pokemonList.map((pokemon) => <PokeInfoCard key={pokemon.name} name={pokemon.name} />)}
+
+      {pokemonList &&
+        pokemonList.length > 0 &&
+        pokemonList.map((pokemon) => <PokeInfoCard key={pokemon.name} name={pokemon.name} />)}
     </PokeContainer>
   );
 };
