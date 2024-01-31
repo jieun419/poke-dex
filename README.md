@@ -70,18 +70,20 @@ useEffect(() => {
 ## 작업 화면
 |Main|Detail|
 |------|---|
-|![스크린샷 2024-01-06 오후 6 15 25](https://github.com/jieun419/poke-dex/assets/109754988/d2fe1651-8b5d-4fe6-bac6-07425c1bd1bb)|![스크린샷 2024-01-06 오후 6 15 20](https://github.com/jieun419/poke-dex/assets/109754988/7b58dee0-aadf-40fe-83c8-c5b9a1b47f4d)|
+|![스크린샷 2024-02-01 오전 12 53 28](https://github.com/jieun419/poke-dex/assets/109754988/505a473e-1480-4658-a6b4-aa3983f3eafd)|![스크린샷 2024-02-01 오전 12 53 38](https://github.com/jieun419/poke-dex/assets/109754988/6d198a72-278d-4c68-8132-649c1268ccca)|
 |- 상단 로고와 검색버튼, 다크 모드 버튼<br>- 검색창(작업 전)<br>- 포켓몬 리스트를 확인 할 수 있다.|- 포켓몬 카드 클릭 시 상세 정보를 확인할 수 있다.|
 
 |Dark Mode|Dark Mode Detail|
 |------|---|
-|![스크린샷 2024-01-06 오후 6 15 31](https://github.com/jieun419/poke-dex/assets/109754988/4b719a4f-e2c7-4df9-bdf7-2946c8c4e429)|![스크린샷 2024-01-06 오후 6 20 59](https://github.com/jieun419/poke-dex/assets/109754988/0f1e2b91-aa1e-4489-b47e-cbe24f6baa94)|
+|![스크린샷 2024-02-01 오전 12 54 00](https://github.com/jieun419/poke-dex/assets/109754988/af888682-82e1-4896-beaa-963eba53f516)|![스크린샷 2024-02-01 오전 12 54 12](https://github.com/jieun419/poke-dex/assets/109754988/dc3be58e-6dbe-4022-8385-d44ecc036eff)|
 |- 다크 모드의 화면|- 다크 모드의 화면|
 
 |Search Page|Search Page - Nothing|
 |------|---|
-|![스크린샷 2024-01-31 오전 12 41 40](https://github.com/jieun419/poke-dex/assets/109754988/5dad9ec0-d94c-4bcd-8d6c-6031c75eac51)|![스크린샷 2024-01-31 오전 12 41 19](https://github.com/jieun419/poke-dex/assets/109754988/83f2a068-d15c-40bb-8a4c-7dc8f294926d)|
+|![스크린샷 2024-02-01 오전 12 54 41](https://github.com/jieun419/poke-dex/assets/109754988/03b2b008-3a1d-4c9f-b547-dfd02a93e566)|![스크린샷 2024-02-01 오전 12 54 54](https://github.com/jieun419/poke-dex/assets/109754988/e0016f0a-75f2-4db9-88aa-af837b6c95cf)|
 |- 검색창 입력 후 엔터시 검색 페이지로 이동<br>- 뒤로가기 버튼 클릭시 이전 기록으로 이동<br>- 검색한 리스트 표시|- 검색한 포켓몬이 없을 경우|
+
+
 
 
 
