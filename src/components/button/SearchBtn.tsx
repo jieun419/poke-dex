@@ -1,9 +1,9 @@
 import Search from '../../assets/icons/Search';
 import { CircleButton } from './Button.styled';
 
-const SearchBtn = () => {
+const SearchBtn = ({ onClick }: { onClick: () => void }) => {
   return (
-    <CircleButton name="search button">
+    <CircleButton name="search button" onClick={onClick}>
       <Search />
     </CircleButton>
   );

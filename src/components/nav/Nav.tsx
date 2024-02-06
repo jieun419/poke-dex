@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import SearchBtn from '../button/SearchBtn';
 import ThemeBtn from '../button/ThemeBtn';
 import useToggleTheme from '../../hooks/useToggleTheme';
+import useGoToPage from '../../hooks/useToPage';
 
 const NavContainer = styled.nav``;
 
@@ -12,12 +13,13 @@ const MenuList = styled.ul`
 `;
 
 const Nav = () => {
+  const goToPage = useGoToPage('/search');
   const handlerTheme = useToggleTheme();
   return (
     <NavContainer>
       <MenuList>
         <li>
-          <SearchBtn />
+          <SearchBtn onClick={goToPage} />
         </li>
         <li>
           <ThemeBtn handlerTheme={handlerTheme} />
