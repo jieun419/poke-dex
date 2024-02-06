@@ -40,6 +40,9 @@ const SearchInput = () => {
   useEffect(() => {
     if (searchWord) {
       setKeyWord(String(searchWord));
+      return () => {
+        setKeyWord('');
+      };
     }
   }, []);
 
