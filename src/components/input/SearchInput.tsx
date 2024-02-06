@@ -27,8 +27,10 @@ const SearchInput = () => {
     queryKey: ['pokeFullList'],
     queryFn: () => getPokemonList(100000, 0),
     onSuccess(data) {
-      dispatch(searchKeyWordActions.getSearchKeyWord(searchWord));
-      dispatch(searchKeyWordActions.getSearchPokeData(data.results));
+      if (urlParams.size !== 0) {
+        dispatch(searchKeyWordActions.getSearchKeyWord(searchWord));
+        dispatch(searchKeyWordActions.getSearchPokeData(data.results));
+      }
     },
     onError(err) {
       console.log(err);
