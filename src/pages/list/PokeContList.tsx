@@ -1,10 +1,8 @@
 import styled from 'styled-components';
-import { useQuery } from 'react-query';
-import { useEffect, useState } from 'react';
-import { getPokemonList } from '../../api/pokemonApi';
+import { useEffect } from 'react';
 import PokeInfoCard from '../../components/card/PokeInfoCard';
 import SkeletonCard from '../../components/skeleton/SkeletonCard';
-import { PokeListT } from '../../types/types';
+import { usePokeDataList } from '../../hooks/services/queries/usePokeDataList';
 
 const PokeContainer = styled.article`
   display: grid;
@@ -23,30 +21,7 @@ const PokeContainer = styled.article`
 `;
 
 const PokeContList = () => {
-  const [offset, setOffset] = useState<number>(0);
-  const [pokemonList, setPokemonList] = useState<PokeListT[]>([]);
-  const LIMIT = 20;
-
-  useQuery({
-    queryKey: ['pokeList'],
-    queryFn: () => upDatePokemon(),
-    onSuccess(data) {
-      setPokemonList(data);
-    },
-    onError(err) {
-      console.log(err);
-    },
-  });
-
-  const upDatePokemon = async () => {
-    const getPokemonListData = await getPokemonList(LIMIT, offset);
-    const nextPokeMonList = getPokemonListData.results;
-
-    setOffset((prevOffset) => (prevOffset = prevOffset + LIMIT));
-    setPokemonList((prevList) => [...prevList, ...nextPokeMonList]);
-
-    return nextPokeMonList;
-  };
+  const { pokemonList, upDatePokemon } = usePokeDataList();
 
   useEffect(() => {
     const eventScroll = () => {
