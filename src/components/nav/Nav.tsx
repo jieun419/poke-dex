@@ -3,6 +3,7 @@ import SearchBtn from '../button/SearchBtn';
 import ThemeBtn from '../button/ThemeBtn';
 import useToggleTheme from '../../hooks/useToggleTheme';
 import useGoToPage from '../../hooks/useToPage';
+import LanguageBtn from '../button/LanguageBtn';
 
 const NavContainer = styled.nav``;
 
@@ -18,6 +19,9 @@ const Nav = () => {
   return (
     <NavContainer>
       <MenuList>
+        <li>
+          <LanguageBtn />
+        </li>
         <li>
           <SearchBtn onClick={goToPage} />
         </li>
