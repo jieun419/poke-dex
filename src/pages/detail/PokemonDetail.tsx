@@ -8,6 +8,8 @@ import BackBtn from '../../components/button/BackBtn';
 import ModalBgBox from '../../components/box/ModalBgBox';
 import DropBox from '../../components/box/DropBox';
 import { strRepeat } from '../../utils/strRepeat';
+import useLangugeType from '../../hooks/useLangugeType';
+import { usePokeDetailData } from '../../hooks/services/queries/usePokeDetailData';
 
 interface PropsT {
   name: string;
@@ -132,13 +134,16 @@ const Typebox = styled.div`
 
 const PokemonDetail = ({ name }: PropsT) => {
   const dispatch = useDispatch();
+  const modal = useSelector((state: RootState) => state.overlayMoal.modalState);
   const nameId = useSelector((state: RootState) => state.overlayMoal.id);
+  const { isLanguageKrMode } = useLangugeType();
+  const { pokeData, pokeNameKr } = usePokeDetailData(name);
 
   const handlerModal = () => {
     dispatch(overlayMadalActions.toggleModal());
   };
 
-  const { data: pokeData } = useQuery({
+  const { data: pokeDataDetail } = useQuery({
     queryKey: ['pokemondetail', name],
     queryFn: () => getPokemonData(nameId),
     onError(err) {
@@ -150,7 +155,7 @@ const PokemonDetail = ({ name }: PropsT) => {
   const speciesData = nameId === name && pokeData?.species.url;
 
   const { data: species } = useQuery({
-    queryKey: ['pokemonsecies', pokeData],
+    queryKey: ['pokemonsecies', pokeDataDetail],
     queryFn: () => getPokemonSpeciesData(speciesData),
     onError(err) {
       console.log(err);
@@ -159,7 +164,7 @@ const PokemonDetail = ({ name }: PropsT) => {
 
   return (
     <>
-      {pokeData && species && nameId === name ? (
+      {modal && pokeDataDetail && species && nameId === name ? (
         <DetailContain id={nameId}>
           <DetailContainer>
             <DetailWrap>
@@ -169,12 +174,12 @@ const PokemonDetail = ({ name }: PropsT) => {
               <TopWrap>
                 <TopText>
                   <NumText>No. {pokeData.id}</NumText>
-                  <NameText>{pokeData.name}</NameText>
+                  <NameText>{isLanguageKrMode ? pokeNameKr : pokeData.name}</NameText>
                 </TopText>
 
                 <TopImgBox>
-                  <img src={pokeData.sprites.front_default} loading="lazy" alt="앞면" />
-                  <img src={pokeData.sprites.back_default} loading="lazy" alt="뒷면" />
+                  <img src={pokeDataDetail.sprites.front_default} loading="lazy" alt="앞면" />
+                  <img src={pokeDataDetail.sprites.back_default} loading="lazy" alt="뒷면" />
                 </TopImgBox>
               </TopWrap>
 

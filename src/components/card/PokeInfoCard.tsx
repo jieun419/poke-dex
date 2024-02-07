@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { useDispatch } from 'react-redux';
 import { overlayMadalActions } from '../../store/overlayModal-slice';
 import { usePokeDetailData } from '../../hooks/services/queries/usePokeDetailData';
 import PokemonDetail from '../../pages/detail/PokemonDetail';
 import Pokeball from '../../assets/icons/Pokeball';
 import TypeText from '../text/TypeText';
+import useLangugeType from '../../hooks/useLangugeType';
 
 const PokeCardContainer = styled.div`
   position: relative;
@@ -79,14 +79,10 @@ type TypesT = {
   };
 };
 
-interface PokeListDataT {
-  name: string;
-}
-
-const PokeInfoCard = ({ name }: PokeListDataT) => {
+const PokeInfoCard = ({ name }: { name: string }) => {
   const dispatch = useDispatch();
-  const modal = useSelector((state: RootState) => state.overlayMoal.modalState);
-  const { pokeData } = usePokeDetailData(name);
+  const { isLanguageKrMode } = useLangugeType();
+  const { pokeData, pokeNameKr } = usePokeDetailData(name);
 
   const handlerModal = (nameId: string) => {
     dispatch(overlayMadalActions.idSave(nameId));
@@ -95,11 +91,11 @@ const PokeInfoCard = ({ name }: PokeListDataT) => {
 
   return (
     <>
-      {modal && <PokemonDetail name={name} />}
+      <PokemonDetail name={name} />
       <PokeCardContainer id={name} onClick={() => handlerModal(name)}>
         <TextWrap>
           <NumText>no. {pokeData?.id}</NumText>
-          <NameText>{name}</NameText>
+          <NameText>{isLanguageKrMode ? pokeNameKr : name}</NameText>
           <TypeBox>
             {pokeData?.types.map((el: TypesT, idx: number) => <TypeText key={idx} typename={el.type.name} />)}
           </TypeBox>
