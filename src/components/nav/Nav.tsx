@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import SearchBtn from '../button/SearchBtn';
 import ThemeBtn from '../button/ThemeBtn';
-import useToggleTheme from '../../hooks/useToggleTheme';
 import useGoToPage from '../../hooks/useToPage';
 import LanguageBtn from '../button/LanguageBtn';
 
@@ -15,7 +14,7 @@ const MenuList = styled.ul`
 
 const Nav = () => {
   const goToPage = useGoToPage('/search');
-  const handlerTheme = useToggleTheme();
+
   return (
     <NavContainer>
       <MenuList>
@@ -26,7 +25,7 @@ const Nav = () => {
           <SearchBtn onClick={goToPage} />
         </li>
         <li>
-          <ThemeBtn handlerTheme={handlerTheme} />
+          <ThemeBtn />
         </li>
       </MenuList>
     </NavContainer>
