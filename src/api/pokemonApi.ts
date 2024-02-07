@@ -28,7 +28,7 @@ export const getPokemonData = async (name: string) => {
   return res.data;
 };
 
-export const getPokemonDataKr = async (name: string) => {
+export const getPokemonDetailData = async (name: string) => {
   const res = await instance.get(`/pokemon-species/${name}`);
   return res.data;
 };
