@@ -17,7 +17,7 @@ const languageSlice = createSlice({
       state.languageMode = 'en';
     },
     toggleKrMode(state) {
-      state.languageMode = 'kr';
+      state.languageMode = 'ko';
     },
   },
 });

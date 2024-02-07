@@ -5,7 +5,7 @@ import useLangugeType from '../../hooks/useLangugeType';
 const TextIc = styled.span`
   font-size: 18px;
   font-weight: bold;
-  color: #414443;
+  color: var(--icon-color);
 `;
 
 const LanguageBtn = () => {

@@ -79,6 +79,11 @@ const NumText = styled.span`
   font-size: 13px;
 `;
 
+const GeneraText = styled.span`
+  color: var(--text-color);
+  font-size: 16px;
+`;
+
 const TopImgBox = styled.div`
   display: flex;
   flex: 1;
@@ -132,12 +137,20 @@ const Typebox = styled.div`
   }
 `;
 
+const FlavorText = styled.p`
+  color: var(--text-color);
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+`;
+
 const PokemonDetail = ({ name }: PropsT) => {
   const dispatch = useDispatch();
   const modal = useSelector((state: RootState) => state.overlayMoal.modalState);
   const nameId = useSelector((state: RootState) => state.overlayMoal.id);
   const { isLanguageKrMode } = useLangugeType();
-  const { pokeData, pokeNameKr } = usePokeDetailData(name);
+  const { pokeData, pokeNameKr, pokeFlavorText, pokeGeneraText } = usePokeDetailData(name);
 
   const handlerModal = () => {
     dispatch(overlayMadalActions.toggleModal());
@@ -175,6 +188,7 @@ const PokemonDetail = ({ name }: PropsT) => {
                 <TopText>
                   <NumText>No. {pokeData.id}</NumText>
                   <NameText>{isLanguageKrMode ? pokeNameKr : pokeData.name}</NameText>
+                  <GeneraText>{pokeGeneraText}</GeneraText>
                 </TopText>
 
                 <TopImgBox>
@@ -201,6 +215,8 @@ const PokemonDetail = ({ name }: PropsT) => {
                   <div>{strRepeat(pokeData.weight)}kg</div>
                 </InfoBox>
               </DetailInfoWrap>
+
+              <FlavorText>{pokeFlavorText}</FlavorText>
             </DetailWrap>
 
             <DropBox handlerModal={handlerModal} />

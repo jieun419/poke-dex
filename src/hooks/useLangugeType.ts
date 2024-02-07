@@ -5,9 +5,9 @@ import { languageActions } from '../store/language-slice';
 const useLangugeType = () => {
   const dispatch = useDispatch();
   const languageMode = useSelector((state: RootState) => state.languageType.languageMode);
-  const isLanguageKrMode = languageMode === 'kr';
+  const isLanguageKrMode = languageMode === 'ko';
 
-  const languageSave = (value: 'kr' | 'en') => {
+  const languageSave = (value: 'ko' | 'en') => {
     localStorage.setItem('LANGUAGE', value);
   };
 
@@ -15,7 +15,7 @@ const useLangugeType = () => {
     if (!languageMode) return;
     if (languageMode === 'en') {
       dispatch(languageActions.toggleKrMode());
-      languageSave('kr');
+      languageSave('ko');
     } else {
       dispatch(languageActions.toggleEnMode());
       languageSave('en');
