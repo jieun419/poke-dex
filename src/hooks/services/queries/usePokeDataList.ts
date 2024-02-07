@@ -4,9 +4,9 @@ import { getPokemonList } from '../../../api/pokemonApi';
 import { PokeListT } from '../../../types/types';
 
 export const usePokeDataList = () => {
+  const LIMIT = 20;
   const [offset, setOffset] = useState<number>(0);
   const [pokemonList, setPokemonList] = useState<PokeListT[]>([]);
-  const LIMIT = 20;
 
   useQuery({
     queryKey: ['pokeList'],
