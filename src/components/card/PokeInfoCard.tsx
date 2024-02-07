@@ -1,19 +1,18 @@
 import styled, { css } from 'styled-components';
 import Pokeball from '../../assets/icons/Pokeball';
 import TypeText from '../text/TypeText';
-import { useQuery } from 'react-query';
-import { getPokemonData } from '../../api/pokemonApi';
 import PokemonDetail from '../../pages/detail/PokemonDetail';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { overlayMadalActions } from '../../store/overlayModal-slice';
+import { usePokeDetailData } from '../../hooks/services/queries/usePokeDetailData';
 
 const PokeCardContainer = styled.div`
   position: relative;
   overflow: hidden;
   background-color: var(--box-color);
   border-radius: 10px;
-  box-shadow: 4px 4px 20px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 4px 20px 0 rgba(234, 231, 231, 0.1);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -80,26 +79,20 @@ type TypesT = {
   };
 };
 
-interface PokeListDataT {
+type PokeListDataT = {
   name: string;
-}
+};
 
 const PokeInfoCard = ({ name }: PokeListDataT) => {
   const dispatch = useDispatch();
   const modal = useSelector((state: RootState) => state.overlayMoal.modalState);
-
-  const { data: pokeData } = useQuery({
-    queryKey: ['pokeData', name],
-    queryFn: () => getPokemonData(name),
-    onError(err) {
-      console.log(err);
-    },
-  });
+  const { pokeData } = usePokeDetailData(name);
 
   const handlerModal = (nameId: string) => {
     dispatch(overlayMadalActions.idSave(nameId));
     dispatch(overlayMadalActions.toggleModal());
   };
+
   return (
     <>
       {modal && <PokemonDetail name={name} />}
