@@ -34,6 +34,16 @@ export const usePokeDetailData = (name: string) => {
     queryKey: ['pokeDetailDatas', name],
     queryFn: () => getPokemonDetailData(name),
     onSuccess(data) {
+      upDateLangugeData(data);
+    },
+    onError(err) {
+      console.log(err);
+    },
+    enabled: name.length > 0,
+  });
+
+  const upDateLangugeData = (data: { flavor_text_entries: any[]; genera: any[] }) => {
+    if (pokeDetailDatas) {
       const pokeFlavorEntries = data.flavor_text_entries.find((el: { language: { name: string } }) =>
         isLanguageKrMode ? el.language.name === 'ko' : el.language.name === 'en',
       );
@@ -44,32 +54,19 @@ export const usePokeDetailData = (name: string) => {
 
       setPokeFlavorText(pokeFlavorEntries.flavor_text);
       setPokeGeneraText(pokeGenera.genus);
-    },
-    onError(err) {
-      console.log(err);
-    },
-    enabled: name.length > 0,
-  });
+    }
+  };
 
   useEffect(() => {
-    if (pokeDetailDatas) {
-      const pokeFlavorEntries = pokeDetailDatas.flavor_text_entries.find((el: { language: { name: string } }) =>
-        isLanguageKrMode ? el.language.name === 'ko' : el.language.name === 'en',
-      );
+    upDateLangugeData(pokeDetailDatas);
 
-      const pokeGenera = pokeDetailDatas.genera.find((el: { language: { name: string } }) =>
-        isLanguageKrMode ? el.language.name === 'ko' : el.language.name === 'en',
-      );
-
-      setPokeFlavorText(pokeFlavorEntries.flavor_text);
-      setPokeGeneraText(pokeGenera.genus);
-
-      return () => {
-        setPokeFlavorText([]);
-        setPokeGeneraText([]);
-      };
-    }
+    return () => {
+      setPokeFlavorText([]);
+      setPokeGeneraText([]);
+    };
   }, [isLanguageKrMode]);
+
+  console.log(pokeDetailDatas);
 
   return { pokeData, pokeNameKr, pokeFlavorText, pokeGeneraText };
 };
