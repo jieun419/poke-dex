@@ -19,6 +19,11 @@ export type LanguageT = {
   name: string;
   url: string;
 };
+
+export interface NamesT {
+  name: string;
+  language: LanguageT;
+}
 export interface FlavorEntriesT {
   flavor_text: string;
   language: LanguageT;
@@ -28,6 +33,7 @@ export interface GeneraT {
   language: LanguageT;
 }
 export interface PokeDetailDatasT {
+  names: NamesT[];
   flavor_text_entries: FlavorEntriesT[];
   genera: GeneraT[];
 }

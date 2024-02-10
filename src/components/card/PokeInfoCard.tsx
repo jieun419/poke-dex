@@ -5,7 +5,6 @@ import { usePokeDetailData } from '../../hooks/services/queries/usePokeDetailDat
 import PokemonDetail from '../../pages/detail/PokemonDetail';
 import Pokeball from '../../assets/icons/Pokeball';
 import TypeText from '../text/TypeText';
-import useLangugeType from '../../hooks/useLangugeType';
 
 const PokeCardContainer = styled.div`
   position: relative;
@@ -81,8 +80,7 @@ type TypesT = {
 
 const PokeInfoCard = ({ name }: { name: string }) => {
   const dispatch = useDispatch();
-  const { isLanguageKrMode } = useLangugeType();
-  const { pokeData, pokeNameKr } = usePokeDetailData(name);
+  const { pokeData, pokeName } = usePokeDetailData(name);
 
   const handlerModal = (nameId: string) => {
     dispatch(overlayMadalActions.idSave(nameId));
@@ -95,7 +93,7 @@ const PokeInfoCard = ({ name }: { name: string }) => {
       <PokeCardContainer id={name} onClick={() => handlerModal(name)}>
         <TextWrap>
           <NumText>no. {pokeData?.id}</NumText>
-          <NameText>{isLanguageKrMode ? pokeNameKr : name}</NameText>
+          <NameText>{pokeName}</NameText>
           <TypeBox>
             {pokeData?.types.map((el: TypesT, idx: number) => <TypeText key={idx} typename={el.type.name} />)}
           </TypeBox>

@@ -8,7 +8,6 @@ import BackBtn from '../../components/button/BackBtn';
 import ModalBgBox from '../../components/box/ModalBgBox';
 import DropBox from '../../components/box/DropBox';
 import { strRepeat } from '../../utils/strRepeat';
-import useLangugeType from '../../hooks/useLangugeType';
 import { usePokeDetailData } from '../../hooks/services/queries/usePokeDetailData';
 
 interface PropsT {
@@ -149,8 +148,7 @@ const PokemonDetail = ({ name }: PropsT) => {
   const dispatch = useDispatch();
   const modal = useSelector((state: RootState) => state.overlayMoal.modalState);
   const nameId = useSelector((state: RootState) => state.overlayMoal.id);
-  const { isLanguageKrMode } = useLangugeType();
-  const { pokeData, pokeNameKr, pokeFlavorText, pokeGeneraText } = usePokeDetailData(name);
+  const { pokeData, pokeName, pokeFlavorText, pokeGeneraText } = usePokeDetailData(name);
 
   const handlerModal = () => {
     dispatch(overlayMadalActions.toggleModal());
@@ -187,7 +185,7 @@ const PokemonDetail = ({ name }: PropsT) => {
               <TopWrap>
                 <TopText>
                   <NumText>No. {pokeData.id}</NumText>
-                  <NameText>{isLanguageKrMode ? pokeNameKr : pokeData.name}</NameText>
+                  <NameText>{pokeName}</NameText>
                   <GeneraText>{pokeGeneraText}</GeneraText>
                 </TopText>
 

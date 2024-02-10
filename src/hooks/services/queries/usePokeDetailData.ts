@@ -2,14 +2,15 @@ import { useQuery } from 'react-query';
 import { getPokemonData, getPokemonDetailData } from '../../../api/pokemonApi';
 import { useEffect, useState } from 'react';
 import useLangugeType from '../../useLangugeType';
-import { LanguageT, PokeDetailDatasT } from '../../../types/types';
+import { PokeDetailDatasT } from '../../../types/types';
 
 export const usePokeDetailData = (name: string) => {
-  const [pokeNameKr, setPokeNameKr] = useState<string[]>([]);
+  const [pokeName, setPokeName] = useState<string>('');
   const [pokeFlavorText, setPokeFlavorText] = useState<string>('');
   const [pokeGeneraText, setPokeGeneraText] = useState<string>('');
   const { isLanguageKrMode } = useLangugeType();
 
+  //* 일반 데이터
   const { data: pokeData } = useQuery({
     queryKey: ['pokeData', name],
     queryFn: () => getPokemonData(name),
@@ -18,19 +19,7 @@ export const usePokeDetailData = (name: string) => {
     },
   });
 
-  useQuery({
-    queryKey: ['pokeNameKr', name],
-    queryFn: () => getPokemonDetailData(name),
-    onSuccess(data) {
-      const koreanName = data.names.find((name: LanguageT) => name.language.name === 'ko');
-      setPokeNameKr(koreanName.name);
-    },
-    onError(err) {
-      console.log(err);
-    },
-    enabled: name.length > 0,
-  });
-
+  //* 포켓몬 디테일 데이터
   const { data: pokeDetailDatas } = useQuery({
     queryKey: ['pokeDetailDatas', name],
     queryFn: () => getPokemonDetailData(name),
@@ -44,16 +33,24 @@ export const usePokeDetailData = (name: string) => {
 
   const upDateLangugeData = (pokeDatas: PokeDetailDatasT) => {
     if (pokeDatas) {
-      const pokeFlavorEntries = pokeDatas.flavor_text_entries.find((el) =>
-        isLanguageKrMode ? el.language?.name === 'ko' : el.language?.name === 'en',
+      const pokeFlavorEntries = pokeDatas.flavor_text_entries.find((flavor) =>
+        isLanguageKrMode ? flavor.language?.name === 'ko' : flavor.language?.name === 'en',
       );
 
-      const pokeGenera = pokeDatas.genera.find((el) =>
-        isLanguageKrMode ? el.language?.name === 'ko' : el.language?.name === 'en',
+      const pokeGenera = pokeDatas.genera.find((genera) =>
+        isLanguageKrMode ? genera.language?.name === 'ko' : genera.language?.name === 'en',
       );
+
+      const pokeName = pokeDatas.names.find((name) =>
+        isLanguageKrMode ? name.language?.name === 'ko' : name.language?.name === 'en',
+      );
+
+      if (pokeName) {
+        setPokeName(pokeName.name);
+      }
 
       if (pokeFlavorEntries && pokeFlavorEntries.flavor_text) {
-        setPokeFlavorText(pokeFlavorEntries?.flavor_text);
+        setPokeFlavorText(pokeFlavorEntries.flavor_text);
       }
 
       if (pokeGenera && pokeGenera.genus) {
@@ -70,5 +67,5 @@ export const usePokeDetailData = (name: string) => {
     };
   }, [isLanguageKrMode]);
 
-  return { pokeData, pokeNameKr, pokeFlavorText, pokeGeneraText };
+  return { pokeData, pokeName, pokeFlavorText, pokeGeneraText };
 };
