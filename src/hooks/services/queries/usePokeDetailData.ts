@@ -3,10 +3,27 @@ import { getPokemonData, getPokemonDetailData } from '../../../api/pokemonApi';
 import { useEffect, useState } from 'react';
 import useLangugeType from '../../useLangugeType';
 
+type LanguageT = {
+  name: string;
+  url: string;
+};
+interface FlavorEntriesT {
+  flavor_text: string;
+  language: LanguageT;
+}
+interface GeneraT {
+  genus: string;
+  language: LanguageT;
+}
+interface PokeDetailDatasT {
+  flavor_text_entries: FlavorEntriesT[];
+  genera: GeneraT[];
+}
+
 export const usePokeDetailData = (name: string) => {
   const [pokeNameKr, setPokeNameKr] = useState<string[]>([]);
-  const [pokeFlavorText, setPokeFlavorText] = useState<string[]>([]);
-  const [pokeGeneraText, setPokeGeneraText] = useState<string[]>([]);
+  const [pokeFlavorText, setPokeFlavorText] = useState<string>('');
+  const [pokeGeneraText, setPokeGeneraText] = useState<string>('');
   const { isLanguageKrMode } = useLangugeType();
 
   const { data: pokeData } = useQuery({
@@ -42,18 +59,23 @@ export const usePokeDetailData = (name: string) => {
     enabled: name.length > 0,
   });
 
-  const upDateLangugeData = (data: { flavor_text_entries: any[]; genera: any[] }) => {
+  const upDateLangugeData = (data: PokeDetailDatasT) => {
     if (pokeDetailDatas) {
-      const pokeFlavorEntries = data.flavor_text_entries.find((el: { language: { name: string } }) =>
-        isLanguageKrMode ? el.language.name === 'ko' : el.language.name === 'en',
+      const pokeFlavorEntries = data.flavor_text_entries.find((el) =>
+        isLanguageKrMode ? el.language?.name === 'ko' : el.language?.name === 'en',
       );
 
-      const pokeGenera = data.genera.find((el: { language: { name: string } }) =>
-        isLanguageKrMode ? el.language.name === 'ko' : el.language.name === 'en',
+      const pokeGenera = data.genera.find((el) =>
+        isLanguageKrMode ? el.language?.name === 'ko' : el.language?.name === 'en',
       );
 
-      setPokeFlavorText(pokeFlavorEntries.flavor_text);
-      setPokeGeneraText(pokeGenera.genus);
+      if (pokeFlavorEntries && pokeFlavorEntries.flavor_text) {
+        setPokeFlavorText(pokeFlavorEntries?.flavor_text);
+      }
+
+      if (pokeGenera && pokeGenera.genus) {
+        setPokeGeneraText(pokeGenera.genus);
+      }
     }
   };
 
@@ -61,12 +83,10 @@ export const usePokeDetailData = (name: string) => {
     upDateLangugeData(pokeDetailDatas);
 
     return () => {
-      setPokeFlavorText([]);
-      setPokeGeneraText([]);
+      setPokeFlavorText('');
+      setPokeGeneraText('');
     };
   }, [isLanguageKrMode]);
-
-  console.log(pokeDetailDatas);
 
   return { pokeData, pokeNameKr, pokeFlavorText, pokeGeneraText };
 };
