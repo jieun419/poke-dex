@@ -40,16 +40,15 @@ export const usePokeDetailData = (name: string) => {
     onError(err) {
       console.log(err);
     },
-    enabled: name.length > 0,
   });
 
-  const upDateLangugeData = (data: PokeDetailDatasT) => {
-    if (pokeDetailDatas) {
-      const pokeFlavorEntries = data.flavor_text_entries.find((el) =>
+  const upDateLangugeData = (pokeDatas: PokeDetailDatasT) => {
+    if (pokeDatas) {
+      const pokeFlavorEntries = pokeDatas.flavor_text_entries.find((el) =>
         isLanguageKrMode ? el.language?.name === 'ko' : el.language?.name === 'en',
       );
 
-      const pokeGenera = data.genera.find((el) =>
+      const pokeGenera = pokeDatas.genera.find((el) =>
         isLanguageKrMode ? el.language?.name === 'ko' : el.language?.name === 'en',
       );
 
@@ -65,7 +64,6 @@ export const usePokeDetailData = (name: string) => {
 
   useEffect(() => {
     upDateLangugeData(pokeDetailDatas);
-
     return () => {
       setPokeFlavorText('');
       setPokeGeneraText('');
