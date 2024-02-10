@@ -2,23 +2,7 @@ import { useQuery } from 'react-query';
 import { getPokemonData, getPokemonDetailData } from '../../../api/pokemonApi';
 import { useEffect, useState } from 'react';
 import useLangugeType from '../../useLangugeType';
-
-type LanguageT = {
-  name: string;
-  url: string;
-};
-interface FlavorEntriesT {
-  flavor_text: string;
-  language: LanguageT;
-}
-interface GeneraT {
-  genus: string;
-  language: LanguageT;
-}
-interface PokeDetailDatasT {
-  flavor_text_entries: FlavorEntriesT[];
-  genera: GeneraT[];
-}
+import { LanguageT, PokeDetailDatasT } from '../../../types/types';
 
 export const usePokeDetailData = (name: string) => {
   const [pokeNameKr, setPokeNameKr] = useState<string[]>([]);
@@ -38,7 +22,7 @@ export const usePokeDetailData = (name: string) => {
     queryKey: ['pokeNameKr', name],
     queryFn: () => getPokemonDetailData(name),
     onSuccess(data) {
-      const koreanName = data.names.find((name: { language: { name: string } }) => name.language.name === 'ko');
+      const koreanName = data.names.find((name: LanguageT) => name.language.name === 'ko');
       setPokeNameKr(koreanName.name);
     },
     onError(err) {
