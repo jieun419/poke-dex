@@ -46,7 +46,12 @@ const SearchInput = () => {
   }, []);
 
   const onChangeKeyWord = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyWord(e.target.value);
+    const regExp = /[^a-zA-Z]/g;
+    if (!regExp.test(e.target.value)) {
+      setKeyWord(e.target.value);
+    } else {
+      alert('영문으로 작성해주세요.\n한글 검색 개선 중입니다 :)');
+    }
   };
 
   return (
