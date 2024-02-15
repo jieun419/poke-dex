@@ -3,12 +3,11 @@ import Sun from '../../assets/icons/Sun';
 import Moon from '../../assets/icons/Moon';
 import { CircleButton, IcAnime } from './Button.styled';
 import { RootState } from '../../store';
+import useToggleTheme from '../../hooks/useToggleTheme';
 
-interface ThemePropsT {
-  handlerTheme: () => void;
-}
+const ThemeBtn = () => {
+  const handlerTheme = useToggleTheme();
 
-const ThemeBtn = ({ handlerTheme }: ThemePropsT) => {
   const ThemeMode = useSelector((state: RootState) => state.themeType.themeMode);
   const isDarkMode = ThemeMode === 'dark';
   return (

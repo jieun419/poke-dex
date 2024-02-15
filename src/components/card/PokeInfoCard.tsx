@@ -1,12 +1,10 @@
 import styled, { css } from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { overlayMadalActions } from '../../store/overlayModal-slice';
+import { usePokeDetailData } from '../../hooks/services/queries/usePokeDetailData';
+import PokemonDetail from '../../pages/detail/PokemonDetail';
 import Pokeball from '../../assets/icons/Pokeball';
 import TypeText from '../text/TypeText';
-import { useQuery } from 'react-query';
-import { getPokemonData } from '../../api/pokemonApi';
-import PokemonDetail from '../../pages/detail/PokemonDetail';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { overlayMadalActions } from '../../store/overlayModal-slice';
 
 const PokeCardContainer = styled.div`
   position: relative;
@@ -80,33 +78,22 @@ type TypesT = {
   };
 };
 
-interface PokeListDataT {
-  name: string;
-}
-
-const PokeInfoCard = ({ name }: PokeListDataT) => {
+const PokeInfoCard = ({ name }: { name: string }) => {
   const dispatch = useDispatch();
-  const modal = useSelector((state: RootState) => state.overlayMoal.modalState);
-
-  const { data: pokeData } = useQuery({
-    queryKey: ['pokeData', name],
-    queryFn: () => getPokemonData(name),
-    onError(err) {
-      console.log(err);
-    },
-  });
+  const { pokeData, pokeName } = usePokeDetailData(name);
 
   const handlerModal = (nameId: string) => {
     dispatch(overlayMadalActions.idSave(nameId));
     dispatch(overlayMadalActions.toggleModal());
   };
+
   return (
     <>
-      {modal && <PokemonDetail name={name} />}
+      <PokemonDetail name={name} />
       <PokeCardContainer id={name} onClick={() => handlerModal(name)}>
         <TextWrap>
           <NumText>no. {pokeData?.id}</NumText>
-          <NameText>{name}</NameText>
+          <NameText>{pokeName}</NameText>
           <TypeBox>
             {pokeData?.types.map((el: TypesT, idx: number) => <TypeText key={idx} typename={el.type.name} />)}
           </TypeBox>

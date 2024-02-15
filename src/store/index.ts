@@ -3,6 +3,7 @@ import { infinityScrollReducer } from './infinityScroll-slice';
 import { themeReducer } from './theme-slice';
 import { overlayMadalReducer } from './overlayModal-slice';
 import { searchKeyWordReducer } from './searchPokeList-slice';
+import { languageReducer } from './language-slice';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     themeType: themeReducer,
     overlayMoal: overlayMadalReducer,
     searchKeyWord: searchKeyWordReducer,
+    languageType: languageReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

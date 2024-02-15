@@ -8,6 +8,7 @@ import BackBtn from '../../components/button/BackBtn';
 import ModalBgBox from '../../components/box/ModalBgBox';
 import DropBox from '../../components/box/DropBox';
 import { strRepeat } from '../../utils/strRepeat';
+import { usePokeDetailData } from '../../hooks/services/queries/usePokeDetailData';
 
 interface PropsT {
   name: string;
@@ -77,6 +78,11 @@ const NumText = styled.span`
   font-size: 13px;
 `;
 
+const GeneraText = styled.span`
+  color: var(--text-color);
+  font-size: 16px;
+`;
+
 const TopImgBox = styled.div`
   display: flex;
   flex: 1;
@@ -130,15 +136,25 @@ const Typebox = styled.div`
   }
 `;
 
+const FlavorText = styled.p`
+  color: var(--text-color);
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+`;
+
 const PokemonDetail = ({ name }: PropsT) => {
   const dispatch = useDispatch();
+  const modal = useSelector((state: RootState) => state.overlayMoal.modalState);
   const nameId = useSelector((state: RootState) => state.overlayMoal.id);
+  const { pokeData, pokeName, pokeFlavorText, pokeGeneraText } = usePokeDetailData(name);
 
   const handlerModal = () => {
     dispatch(overlayMadalActions.toggleModal());
   };
 
-  const { data: pokeData } = useQuery({
+  const { data: pokeDataDetail } = useQuery({
     queryKey: ['pokemondetail', name],
     queryFn: () => getPokemonData(nameId),
     onError(err) {
@@ -150,7 +166,7 @@ const PokemonDetail = ({ name }: PropsT) => {
   const speciesData = nameId === name && pokeData?.species.url;
 
   const { data: species } = useQuery({
-    queryKey: ['pokemonsecies', pokeData],
+    queryKey: ['pokemonsecies', pokeDataDetail],
     queryFn: () => getPokemonSpeciesData(speciesData),
     onError(err) {
       console.log(err);
@@ -159,7 +175,7 @@ const PokemonDetail = ({ name }: PropsT) => {
 
   return (
     <>
-      {pokeData && species && nameId === name ? (
+      {modal && pokeDataDetail && species && nameId === name ? (
         <DetailContain id={nameId}>
           <DetailContainer>
             <DetailWrap>
@@ -169,12 +185,13 @@ const PokemonDetail = ({ name }: PropsT) => {
               <TopWrap>
                 <TopText>
                   <NumText>No. {pokeData.id}</NumText>
-                  <NameText>{pokeData.name}</NameText>
+                  <NameText>{pokeName}</NameText>
+                  <GeneraText>{pokeGeneraText}</GeneraText>
                 </TopText>
 
                 <TopImgBox>
-                  <img src={pokeData.sprites.front_default} loading="lazy" alt="앞면" />
-                  <img src={pokeData.sprites.back_default} loading="lazy" alt="뒷면" />
+                  <img src={pokeDataDetail.sprites.front_default} loading="lazy" alt="앞면" />
+                  <img src={pokeDataDetail.sprites.back_default} loading="lazy" alt="뒷면" />
                 </TopImgBox>
               </TopWrap>
 
@@ -196,6 +213,8 @@ const PokemonDetail = ({ name }: PropsT) => {
                   <div>{strRepeat(pokeData.weight)}kg</div>
                 </InfoBox>
               </DetailInfoWrap>
+
+              <FlavorText>{pokeFlavorText}</FlavorText>
             </DetailWrap>
 
             <DropBox handlerModal={handlerModal} />

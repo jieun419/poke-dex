@@ -8,7 +8,7 @@ const BgBox = styled.div<ColorT>`
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100vh - 60vh);
+  height: calc(100vh - 55vh);
   background-color: ${({ color }) => (color ? color : '#fff')};
   opacity: 0.2;
   position: absolute;
