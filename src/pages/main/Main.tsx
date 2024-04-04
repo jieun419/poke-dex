@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import SearchBox from '../../components/box/SearchBox';
 import MainLogo from '../../components/main/MainLogo';
-import { useRef } from 'react';
 import PokeContList from '../list/PokeContList';
 
 const MainContainer = styled.main`
@@ -11,17 +10,13 @@ const MainContainer = styled.main`
   padding: 0 6.25rem;
   max-width: 1200px;
   margin: 0 auto;
-`;
 
-const InfinityDiv = styled.div`
-  height: 50px;
-  width: 100%;
-  background-color: #ff0;
+  @media screen and (max-width: 1023px) {
+    padding: 0 1.2rem;
+  }
 `;
 
 const Main = () => {
-  const scrollRef = useRef<HTMLDivElement | null>(null);
-
   return (
     <>
       <MainContainer>
@@ -29,7 +24,6 @@ const Main = () => {
         <SearchBox />
         <PokeContList />
       </MainContainer>
-      <InfinityDiv ref={scrollRef} />
     </>
   );
 };
