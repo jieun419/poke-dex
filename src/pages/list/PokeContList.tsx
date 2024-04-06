@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import { Suspense, useEffect } from 'react';
+import { useEffect } from 'react';
 import PokeInfoCard from '../../components/card/PokeInfoCard';
 import SkeletonCard from '../../components/skeleton/SkeletonCard';
 import { usePokeDataList } from '../../hooks/services/queries/usePokeDataList';
-import Loading from '../loading/Loading';
 
 const PokeContainer = styled.article`
   display: grid;
