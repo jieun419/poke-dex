@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import PokeInfoCard from '../../components/card/PokeInfoCard';
 import SkeletonCard from '../../components/skeleton/SkeletonCard';
 import { usePokeDataList } from '../../hooks/services/queries/usePokeDataList';
+import Loading from '../loading/Loading';
 
 const PokeContainer = styled.article`
   display: grid;
@@ -21,7 +22,7 @@ const PokeContainer = styled.article`
 `;
 
 const PokeContList = () => {
-  const { pokemonList, upDatePokemon } = usePokeDataList();
+  const { pokemonList, isLoading, upDatePokemon } = usePokeDataList();
 
   useEffect(() => {
     const eventScroll = () => {
@@ -41,11 +42,12 @@ const PokeContList = () => {
     }
   }, [pokemonList]);
 
+  console.log('isLoading', isLoading);
+
   return (
     <PokeContainer>
-      {pokemonList.length <= 0 && <SkeletonCard />}
-
-      {pokemonList.length > 0 && pokemonList.map((pokemon) => <PokeInfoCard key={pokemon.name} name={pokemon.name} />)}
+      {isLoading && <SkeletonCard />}
+      {!isLoading && pokemonList.map((pokemon) => <PokeInfoCard key={pokemon.name} name={pokemon.name} />)}
     </PokeContainer>
   );
 };
