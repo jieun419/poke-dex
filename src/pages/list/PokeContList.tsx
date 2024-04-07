@@ -46,7 +46,9 @@ const PokeContList = () => {
   return (
     <PokeContainer>
       {isLoading && <SkeletonCard />}
-      {!isLoading && pokemonList.map((pokemon) => <PokeInfoCard key={pokemon.name} name={pokemon.name} />)}
+      {pokemonList.map((pokemon) => (
+        <PokeInfoCard key={pokemon.name} name={pokemon.name} />
+      ))}
     </PokeContainer>
   );
 };
