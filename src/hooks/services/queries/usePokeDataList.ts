@@ -8,7 +8,7 @@ export const usePokeDataList = () => {
   const [offset, setOffset] = useState<number>(0);
   const [pokemonList, setPokemonList] = useState<PokeListT[]>([]);
 
-  useQuery({
+  const { isLoading } = useQuery({
     queryKey: ['pokeList'],
     queryFn: () => upDatePokemon(),
     onSuccess(data) {
@@ -21,6 +21,7 @@ export const usePokeDataList = () => {
 
   const upDatePokemon = async () => {
     const getPokemonListData = await getPokemonList(LIMIT, offset);
+    await new Promise((res) => setTimeout(res, 3000));
     const nextPokeMonList = getPokemonListData.results;
 
     setOffset((prevOffset) => (prevOffset = prevOffset + LIMIT));
@@ -29,5 +30,5 @@ export const usePokeDataList = () => {
     return nextPokeMonList;
   };
 
-  return { pokemonList, upDatePokemon };
+  return { pokemonList, isLoading, upDatePokemon };
 };

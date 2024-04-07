@@ -18,13 +18,11 @@ const MainContainer = styled.main`
 
 const Main = () => {
   return (
-    <>
-      <MainContainer>
-        <MainLogo />
-        <SearchBox />
-        <PokeContList />
-      </MainContainer>
-    </>
+    <MainContainer>
+      <MainLogo />
+      <SearchBox />
+      <PokeContList />
+    </MainContainer>
   );
 };
 

@@ -5,6 +5,7 @@ import { usePokeDetailData } from '../../hooks/services/queries/usePokeDetailDat
 import PokemonDetail from '../../pages/detail/PokemonDetail';
 import Pokeball from '../../assets/icons/Pokeball';
 import TypeText from '../text/TypeText';
+import { memo } from 'react';
 
 const PokeCardContainer = styled.div`
   position: relative;
@@ -81,7 +82,6 @@ type TypesT = {
 const PokeInfoCard = ({ name }: { name: string }) => {
   const dispatch = useDispatch();
   const { pokeData, pokeName } = usePokeDetailData(name);
-
   const handlerModal = (nameId: string) => {
     dispatch(overlayMadalActions.idSave(nameId));
     dispatch(overlayMadalActions.toggleModal());
@@ -107,4 +107,4 @@ const PokeInfoCard = ({ name }: { name: string }) => {
   );
 };
 
-export default PokeInfoCard;
+export default memo(PokeInfoCard);

@@ -12,7 +12,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   padding: 20px 6.25rem;
   z-index: 10;
-  background-color: #fff;
+  background-color: var(--bg-color);
 
   &.scroll_header {
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.03);
