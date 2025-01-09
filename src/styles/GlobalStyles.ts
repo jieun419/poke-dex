@@ -4,12 +4,13 @@ import reset from 'styled-reset';
 const GlobalStyles = createGlobalStyle`
   ${reset}
   :root {
-    --bg-color: ${(props) => props.theme.colors.bgColor};
-    --box-color: ${(props) => props.theme.colors.boxColor};
-    --text-color: ${(props) => props.theme.colors.textColor};
-    --icon-color: ${(props) => props.theme.colors.iconColor};
-    --icon-box-color: ${(props) => props.theme.colors.iconBoxColor};
-    --border-color: ${(props) => props.theme.colors.borColor};
+    --bg-color: ${({ theme }) => theme.colors.bgColor};
+    --box-color: ${({ theme }) => theme.colors.boxColor};
+    --text-color: ${({ theme }) => theme.colors.textColor};
+    --icon-color: ${({ theme }) => theme.colors.iconColor};
+    --icon-box-color: ${({ theme }) => theme.colors.iconBoxColor};
+    --border-color: ${({ theme }) => theme.colors.borColor};
+    --header-color: ${({ theme }) => theme.colors.headerColor}
   }
     // 적용시킬 css 입력
     a{
