@@ -21,7 +21,7 @@ const PokeContainer = styled.article`
 `;
 
 const PokeContList = () => {
-  const { pokemonList, upDatePokemon } = usePokeDataList();
+  const { pokemonList, isLoading, upDatePokemon } = usePokeDataList();
 
   useEffect(() => {
     const eventScroll = () => {
@@ -41,11 +41,14 @@ const PokeContList = () => {
     }
   }, [pokemonList]);
 
+  console.log('isLoading', isLoading);
+
   return (
     <PokeContainer>
-      {pokemonList.length <= 0 && <SkeletonCard />}
-
-      {pokemonList.length > 0 && pokemonList.map((pokemon) => <PokeInfoCard key={pokemon.name} name={pokemon.name} />)}
+      {isLoading && <SkeletonCard />}
+      {pokemonList.map((pokemon) => (
+        <PokeInfoCard key={pokemon.name} name={pokemon.name} />
+      ))}
     </PokeContainer>
   );
 };
