@@ -9,7 +9,7 @@ const store = configureStore({
   reducer: {
     infinityScroll: infinityScrollReducer,
     themeType: themeReducer,
-    overlayMoal: overlayMadalReducer,
+    overlayModal: overlayMadalReducer,
     searchKeyWord: searchKeyWordReducer,
     languageType: languageReducer,
   },

@@ -1,11 +1,14 @@
 import styled, { css } from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { overlayMadalActions } from '../../store/overlayModal-slice';
 import { usePokeDetailData } from '../../hooks/services/queries/usePokeDetailData';
-import PokemonDetail from '../../pages/detail/PokemonDetail';
 import Pokeball from '../../assets/icons/Pokeball';
 import TypeText from '../text/TypeText';
 import { memo } from 'react';
+import { RootState } from '../../store';
+import Modal from '../modal/Modal';
+import PokemonDetail from '../../pages/detail/PokemonDetail';
+
 
 const PokeCardContainer = styled.div`
   position: relative;
@@ -81,16 +84,25 @@ type TypesT = {
 
 const PokeInfoCard = ({ name }: { name: string }) => {
   const dispatch = useDispatch();
+
+  const modal = useSelector((state: RootState) => state.overlayModal.modalState);
+  const nameId = useSelector((state: RootState) => state.overlayModal.id);
   const { pokeData, pokeName } = usePokeDetailData(name);
-  const handlerModal = (nameId: string) => {
+
+  const handlerOpenModal = (nameId: string) => {
     dispatch(overlayMadalActions.idSave(nameId));
     dispatch(overlayMadalActions.toggleModal());
+    console.log('modal', modal);
   };
 
   return (
     <>
-      <PokemonDetail name={name} />
-      <PokeCardContainer id={name} onClick={() => handlerModal(name)}>
+      {modal && nameId === name && (
+        <Modal actionFn={() => dispatch(overlayMadalActions.toggleModal())}>
+          <PokemonDetail name={name} />
+        </Modal>
+      )}
+      <PokeCardContainer id={name} onClick={() => handlerOpenModal(name)}>
         <TextWrap>
           <NumText>no. {pokeData?.id}</NumText>
           <NameText>{pokeName}</NameText>
