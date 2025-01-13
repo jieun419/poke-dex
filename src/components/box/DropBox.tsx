@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface PropsT {
-  handlerModal: () => void;
+  actionFn: () => void;
 }
 
 const DropBoxWrap = styled.div`
@@ -14,8 +14,8 @@ const DropBoxWrap = styled.div`
   top: 0;
 `;
 
-const DropBox = ({ handlerModal }: PropsT) => {
-  return <DropBoxWrap onClick={handlerModal} />;
+const DropBox = ({ actionFn }: PropsT) => {
+  return <DropBoxWrap onClick={actionFn} />;
 };
 
 export default DropBox;
