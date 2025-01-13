@@ -1,14 +1,13 @@
-import { useQuery } from 'react-query';
-import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPokemonData, getPokemonSpeciesData } from '../../api/pokemonApi';
-import { overlayMadalActions } from '../../store/overlayModal-slice';
+import styled from 'styled-components';
 import { RootState } from '../../store';
-import BackBtn from '../../components/button/BackBtn';
-import ModalBgBox from '../../components/box/ModalBgBox';
-import DropBox from '../../components/box/DropBox';
-import { strRepeat } from '../../utils/strRepeat';
 import { usePokeDetailData } from '../../hooks/services/queries/usePokeDetailData';
+import { overlayMadalActions } from '../../store/overlayModal-slice';
+import BackBtn from '../../components/button/BackBtn';
+import { useQuery } from 'react-query';
+import { getPokemonSpeciesData } from '../../api/pokemonApi';
+import { strRepeat } from '../../utils/strRepeat';
+import ModalBgBox from '../../components/box/ModalBgBox';
 
 interface PropsT {
   name: string;
@@ -21,24 +20,6 @@ type TypesT = {
     url: string;
   };
 };
-
-const DetailContain = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-`;
-
-const DetailContainer = styled.article`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100vh;
-`;
 
 const DetailWrap = styled.section`
   position: relative;
@@ -146,82 +127,61 @@ const FlavorText = styled.p`
 
 const PokemonDetail = ({ name }: PropsT) => {
   const dispatch = useDispatch();
-  const modal = useSelector((state: RootState) => state.overlayMoal.modalState);
-  const nameId = useSelector((state: RootState) => state.overlayMoal.id);
+  const nameId = useSelector((state: RootState) => state.overlayModal.id);
   const { pokeData, pokeName, pokeFlavorText, pokeGeneraText } = usePokeDetailData(name);
-
-  const handlerModal = () => {
-    dispatch(overlayMadalActions.toggleModal());
-  };
-
-  const { data: pokeDataDetail } = useQuery({
-    queryKey: ['pokemondetail', name],
-    queryFn: () => getPokemonData(nameId),
-    onError(err) {
-      console.log(err);
-    },
-    enabled: nameId === name,
-  });
 
   const speciesData = nameId === name && pokeData?.species.url;
 
-  const { data: species } = useQuery({
-    queryKey: ['pokemonsecies', pokeDataDetail],
-    queryFn: () => getPokemonSpeciesData(speciesData),
+  const { data: pokemonsecies } = useQuery({
+    queryKey: ['pokemonsecies', pokeData],
+    queryFn: () => {
+      if (!speciesData) throw new Error('Species data is undefined');
+      return getPokemonSpeciesData(speciesData);
+    },
     onError(err) {
-      console.log(err);
+      console.error(err, 'pokemonsecies 에러 발생');
     },
   });
 
   return (
-    <>
-      {modal && pokeDataDetail && species && nameId === name ? (
-        <DetailContain id={nameId}>
-          <DetailContainer>
-            <DetailWrap>
-              <BackBtn onClick={handlerModal} />
-              <ModalBgBox color={species.color && species.color.name} />
+    <DetailWrap>
+      <BackBtn onClick={() => dispatch(overlayMadalActions.toggleModal())} />
+      <ModalBgBox color={pokemonsecies?.color?.name} />
 
-              <TopWrap>
-                <TopText>
-                  <NumText>No. {pokeData.id}</NumText>
-                  <NameText>{pokeName}</NameText>
-                  <GeneraText>{pokeGeneraText}</GeneraText>
-                </TopText>
+      <TopWrap>
+        <TopText>
+          <NumText>No. {pokeData.id}</NumText>
+          <NameText>{pokeName}</NameText>
+          <GeneraText>{pokeGeneraText}</GeneraText>
 
-                <TopImgBox>
-                  <img src={pokeDataDetail.sprites.front_default} loading="lazy" alt="앞면" />
-                  <img src={pokeDataDetail.sprites.back_default} loading="lazy" alt="뒷면" />
-                </TopImgBox>
-              </TopWrap>
+          <TopImgBox>
+            {pokeData?.sprites?.front_default && <img src={pokeData.sprites.front_default} loading="lazy" alt="앞면" />}
+            {pokeData?.sprites?.back_default && <img src={pokeData.sprites.back_default} loading="lazy" alt="뒷면" />}
+          </TopImgBox>
+        </TopText>
 
-              <DetailInfoWrap>
-                <InfoBox>
-                  <h3>타입</h3>
-                  <Typebox>
-                    {pokeData?.types.map((el: TypesT, idx: number) => <span key={idx}>{el.type && el.type.name}</span>)}
-                  </Typebox>
-                </InfoBox>
+        <DetailInfoWrap>
+          <InfoBox>
+            <h3>타입</h3>
+            <Typebox>
+              {pokeData?.types.map((el: TypesT, idx: number) => <span key={idx}>{el.type && el.type.name}</span>)}
+            </Typebox>
+          </InfoBox>
 
-                <InfoBox>
-                  <h3>키</h3>
-                  <div>{strRepeat(pokeData.height)}m</div>
-                </InfoBox>
+          <InfoBox>
+            <h3>키</h3>
+            <div>{pokeData?.height ? strRepeat(pokeData.height) : '-'}m</div>
+          </InfoBox>
 
-                <InfoBox>
-                  <h3>몸무게</h3>
-                  <div>{strRepeat(pokeData.weight)}kg</div>
-                </InfoBox>
-              </DetailInfoWrap>
+          <InfoBox>
+            <h3>몸무게</h3>
+            <div>{pokeData?.weight ? strRepeat(pokeData.weight) : '-'}kg</div>
+          </InfoBox>
+        </DetailInfoWrap>
 
-              <FlavorText>{pokeFlavorText}</FlavorText>
-            </DetailWrap>
-
-            <DropBox handlerModal={handlerModal} />
-          </DetailContainer>
-        </DetailContain>
-      ) : null}
-    </>
+        <FlavorText>{pokeFlavorText}</FlavorText>
+      </TopWrap>
+    </DetailWrap>
   );
 };
 

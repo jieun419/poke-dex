@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface ColorT {
-  color: string;
+  color?: string;
 }
 
 const BgBox = styled.div<ColorT>`
