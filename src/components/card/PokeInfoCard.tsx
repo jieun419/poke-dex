@@ -9,6 +9,7 @@ import { RootState } from '../../store';
 import Modal from '../modal/Modal';
 import PokemonDetail from '../../pages/detail/PokemonDetail';
 
+
 const PokeCardContainer = styled.div`
   position: relative;
   overflow: hidden;
